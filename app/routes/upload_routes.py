@@ -8,7 +8,7 @@ from app.config import Config
 from werkzeug.utils import secure_filename
 from app.models.user import User, db
 from app.models.evaluation import Evaluation, EvaluationStatus
-from app.services.local_storage_service import LocalStorageService
+from app.services.s3_service import S3Service
 from app.services.excel_parser import ExcelParser
 from app.services.pdf_parser import PDFParser
 from app.services.docx_parser import DOCXParser
@@ -79,8 +79,8 @@ def evaluate_document():
             logger.error(f"Error saving file: {e}")
             return jsonify({'error': 'Failed to save uploaded file'}), 500
         
-        # Upload file to local storage using LocalStorageService
-        storage_service = LocalStorageService()
+        # Upload file to S3 using S3Service
+        storage_service = S3Service()
         original_file_key = f"original_files/{unique_filename}"
         
         try:
@@ -186,7 +186,7 @@ def evaluate_document():
         
         # Upload report to local storage
         download_url = None
-        storage_service = LocalStorageService()
+        storage_service = S3Service()
         try:
             file_key = f"reports/{report_filename}"
             storage_service.upload_file(report_path, file_key)
@@ -285,7 +285,7 @@ def download_evaluation(evaluation_id):
             return jsonify({'error': 'Evaluation not completed'}), 400
         
         # Generate fresh download URL
-        storage_service = LocalStorageService()
+        storage_service = S3Service()
         if evaluation.report_file_s3_key:
             # Use local file URL
             download_url = f"/api/upload/public/download-file/{evaluation.report_file_s3_key}"
@@ -314,7 +314,7 @@ def public_download(file_key):
             return jsonify({'error': 'Invalid file key'}), 400
         
         # Generate local file URL
-        storage_service = LocalStorageService()
+        storage_service = S3Service()
         download_url = storage_service.regenerate_download_url(file_key, expiration_hours=1)
         
         # Return the local file URL
@@ -382,7 +382,7 @@ def public_redirect_download(file_key):
             return jsonify({'error': 'Invalid file key'}), 400
         
         # Generate download URL for local storage
-        storage_service = LocalStorageService()
+        storage_service = S3Service()
         download_url = storage_service.regenerate_download_url(file_key, expiration_hours=1)
         
         # Redirect directly to the download URL
@@ -417,7 +417,7 @@ def public_evaluation_download(evaluation_id):
             return jsonify({'error': 'No report file available'}), 404
         
         # Generate fresh download URL for local storage
-        storage_service = LocalStorageService()
+        storage_service = S3Service()
         download_url = storage_service.regenerate_download_url(evaluation.report_file_s3_key, expiration_hours=24)
         
         # Update the evaluation with the new URL
@@ -453,7 +453,7 @@ def public_evaluation_download_file(evaluation_id):
             return jsonify({'error': 'No report file available'}), 404
         
         # Get the file from local storage
-        storage_service = LocalStorageService()
+        storage_service = S3Service()
         file_content = None
         source = 'local'
         
@@ -525,7 +525,7 @@ def public_evaluation_redirect(evaluation_id):
             return jsonify({'error': 'No report file available'}), 404
         
         # Generate fresh download URL for local storage
-        storage_service = LocalStorageService()
+        storage_service = S3Service()
         download_url = storage_service.regenerate_download_url(evaluation.report_file_s3_key, expiration_hours=24)
         
         # Update the evaluation with the new URL
@@ -573,7 +573,7 @@ def public_evaluations_list():
 def test_local_storage():
     """Test endpoint to verify local storage functionality"""
     try:
-        storage_service = LocalStorageService()
+        storage_service = S3Service()
         
         # Generate a test URL
         test_url = storage_service.regenerate_download_url('test-file.pdf', expiration_hours=1)
@@ -609,7 +609,7 @@ def test_pdf_content(evaluation_id):
             return jsonify({'error': 'No report file available'}), 404
         
         # Get the file from local storage
-        storage_service = LocalStorageService()
+        storage_service = S3Service()
         
         try:
             # Get file content from local storage
@@ -692,7 +692,7 @@ def direct_download_evaluation(evaluation_id):
             return jsonify({'error': 'No report file available'}), 404
         
         # Generate fresh download URL for local storage
-        storage_service = LocalStorageService()
+        storage_service = S3Service()
         
         # Get file content from local storage
         try:
@@ -778,8 +778,8 @@ def basic_evaluate():
             logger.error(f"Error saving file: {e}")
             return jsonify({'error': 'Failed to save uploaded file'}), 500
         
-        # Upload original file to local storage using LocalStorageService
-        storage_service = LocalStorageService()
+                    # Upload original file to S3 using S3Service
+        storage_service = S3Service()
         original_file_key = f"original_files/{unique_filename}"
         
         try:
@@ -827,7 +827,7 @@ def basic_evaluate():
             
             # Upload to local storage
             download_url = None
-            storage_service = LocalStorageService()
+            storage_service = S3Service()
             try:
                 file_key = f"reports/{report_filename}"
                 storage_service.upload_file(report_path, file_key)
@@ -932,8 +932,8 @@ def evaluate_with_template():
             logger.error(f"Error saving files: {e}")
             return jsonify({'error': 'Failed to save uploaded files'}), 500
         
-        # Upload files to local storage using LocalStorageService
-        storage_service = LocalStorageService()
+                    # Upload files to S3 using S3Service
+        storage_service = S3Service()
         manuscript_file_key = f"original_files/{manuscript_unique}"
         template_file_key = f"templates/{template_unique}"
         
@@ -1037,7 +1037,7 @@ def evaluate_with_template():
             
             # Upload report to local storage
             download_url = None
-            storage_service = LocalStorageService()
+            storage_service = S3Service()
             try:
                 file_key = f"reports/{report_filename}"
                 storage_service.upload_file(report_path, file_key)
@@ -1173,8 +1173,7 @@ def perform_multi_method_evaluation(text_content, evaluation_methods, selected_t
                         
                         if template:
                             # Get template file and parse it
-                            from app.services.local_storage_service import LocalStorageService
-                            storage_service = LocalStorageService()
+                            storage_service = S3Service()
                             template_content = storage_service.get_file_content(template.file_s3_key)
                             
                             # Save template temporarily

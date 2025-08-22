@@ -4,7 +4,7 @@ from flask import Blueprint, request, jsonify, current_app
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from werkzeug.utils import secure_filename
 from app.models.evaluation import EvaluationTemplate, db
-from app.services.local_storage_service import LocalStorageService
+from app.services.s3_service import S3Service
 from app.services.excel_parser import ExcelParser
 from app.config import Config
 from datetime import datetime
@@ -79,7 +79,7 @@ def upload_template():
         template_type = request.form.get('template_type', 'custom')
         
         # Save file to local storage
-        storage_service = LocalStorageService()
+        storage_service = S3Service()
         filename = secure_filename(file.filename)
         timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
         file_key = f'templates/{current_user_id}/{timestamp}_{filename}'
@@ -220,7 +220,7 @@ def delete_template(template_id):
             return jsonify({'error': 'Cannot delete default template'}), 400
         
         # Delete file from storage
-        storage_service = LocalStorageService()
+        storage_service = S3Service()
         try:
             storage_service.delete_file(template.file_s3_key)
         except Exception as storage_error:
@@ -256,7 +256,7 @@ def download_template(template_id):
             return jsonify({'error': 'Template not found'}), 404
         
         # Generate download URL
-        storage_service = LocalStorageService()
+        storage_service = S3Service()
         download_url = storage_service.regenerate_download_url(template.file_s3_key, expiration_hours=1)
         
         return jsonify({

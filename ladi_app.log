@@ -19,3 +19,56 @@
 2025-08-21 21:55:06,380 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
  * Running on http://127.0.0.1:5000
 2025-08-21 21:55:06,381 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-08-22 08:54:25,932 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-08-22 08:54:25,932 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-08-22 08:55:08,060 - werkzeug - INFO - 127.0.0.1 - - [22/Aug/2025 08:55:08] "OPTIONS /api/user/profile HTTP/1.1" 200 -
+2025-08-22 08:55:08,087 - werkzeug - INFO - 127.0.0.1 - - [22/Aug/2025 08:55:08] "[31m[1mGET /api/user/profile HTTP/1.1[0m" 401 -
+2025-08-22 08:55:24,590 - werkzeug - INFO - 127.0.0.1 - - [22/Aug/2025 08:55:24] "OPTIONS /api/auth/login HTTP/1.1" 200 -
+2025-08-22 08:55:26,598 - app.routes.auth_routes - INFO - User logged in: admin@ladi.com
+2025-08-22 08:55:28,045 - werkzeug - INFO - 127.0.0.1 - - [22/Aug/2025 08:55:28] "POST /api/auth/login HTTP/1.1" 200 -
+2025-08-22 08:55:28,050 - werkzeug - INFO - 127.0.0.1 - - [22/Aug/2025 08:55:28] "OPTIONS /api/upload/clear-old-download-urls HTTP/1.1" 200 -
+2025-08-22 08:55:29,480 - app.routes.upload_routes - INFO - Cleared old download URLs for user 1
+2025-08-22 08:55:29,480 - werkzeug - INFO - 127.0.0.1 - - [22/Aug/2025 08:55:29] "POST /api/upload/clear-old-download-urls HTTP/1.1" 200 -
+2025-08-22 08:55:30,332 - werkzeug - INFO - 127.0.0.1 - - [22/Aug/2025 08:55:30] "OPTIONS /api/user/evaluations HTTP/1.1" 200 -
+2025-08-22 08:55:35,358 - werkzeug - INFO - 127.0.0.1 - - [22/Aug/2025 08:55:35] "GET /api/user/evaluations HTTP/1.1" 200 -
+2025-08-22 08:55:48,770 - werkzeug - INFO - 127.0.0.1 - - [22/Aug/2025 08:55:48] "OPTIONS /api/upload/evaluate HTTP/1.1" 200 -
+2025-08-22 08:55:49,831 - app.routes.upload_routes - INFO - File saved temporarily: temp_uploads\476e942c70c349a4a09884b252d9bf25.pdf
+2025-08-22 08:55:52,107 - app.services.s3_service - INFO - Successfully initialized S3 client for bucket: ladifilecheck
+2025-08-22 08:55:53,932 - app.services.s3_service - INFO - Successfully uploaded temp_uploads\476e942c70c349a4a09884b252d9bf25.pdf to S3: original_files/476e942c70c349a4a09884b252d9bf25.pdf
+2025-08-22 08:55:53,932 - app.routes.upload_routes - INFO - Original file uploaded to local storage: original_files/476e942c70c349a4a09884b252d9bf25.pdf
+2025-08-22 08:55:55,706 - app.routes.upload_routes - INFO - Starting evaluation for user 1, evaluation ID: 2
+2025-08-22 08:55:55,706 - app.routes.upload_routes - INFO - Evaluation methods: ['basic'], Templates: []
+2025-08-22 08:55:56,105 - app.services.pdf_parser - INFO - Extracted text from page 1
+2025-08-22 08:55:56,138 - app.services.pdf_parser - INFO - Extracted text from page 2
+2025-08-22 08:55:56,167 - app.services.pdf_parser - INFO - Extracted text from page 3
+2025-08-22 08:55:56,168 - app.services.pdf_parser - INFO - PDF parsing completed: 3 pages, 497 words, 4058 characters
+2025-08-22 08:55:56,169 - app.routes.upload_routes - INFO - Starting multi-method evaluation for user 1
+2025-08-22 08:55:56,169 - app.routes.upload_routes - INFO - Methods: ['basic'], Templates: []
+2025-08-22 08:55:56,170 - app.services.gpt_evaluator - WARNING - Failed to initialize OpenAI client: Client.__init__() got an unexpected keyword argument 'proxies', using mock evaluation for development
+2025-08-22 08:55:56,170 - app.services.gpt_evaluator - WARNING - Failed to initialize OpenAI client: Client.__init__() got an unexpected keyword argument 'proxies', using mock evaluation for development
+2025-08-22 08:55:56,170 - app.services.gpt_evaluator - INFO - Starting manuscript evaluation for 4045 characters
+2025-08-22 08:55:56,171 - app.services.gpt_evaluator - INFO - Generating mock evaluation
+2025-08-22 08:55:56,171 - app.services.gpt_evaluator - INFO - Completed manuscript evaluation
+2025-08-22 08:55:56,171 - app.routes.upload_routes - INFO - Evaluation completed successfully for user 1
+2025-08-22 08:55:58,143 - app.services.pdf_generator - INFO - Generating PDF report with evaluation_results type: <class 'dict'>
+2025-08-22 08:55:58,157 - app.services.pdf_generator - INFO - PDF report generated successfully: temp_uploads\evaluation_report_2_a686592596974235b75baa508bcd962d.pdf
+2025-08-22 08:56:00,023 - app.services.s3_service - INFO - Successfully initialized S3 client for bucket: ladifilecheck
+2025-08-22 08:56:00,450 - app.services.s3_service - INFO - Successfully uploaded temp_uploads\evaluation_report_2_a686592596974235b75baa508bcd962d.pdf to S3: reports/evaluation_report_2_a686592596974235b75baa508bcd962d.pdf
+2025-08-22 08:56:00,450 - app.routes.upload_routes - ERROR - Failed to upload report to local storage: 'S3Service' object has no attribute 'generate_download_url'
+2025-08-22 08:56:02,570 - werkzeug - INFO - 127.0.0.1 - - [22/Aug/2025 08:56:02] "POST /api/upload/evaluate HTTP/1.1" 200 -
+2025-08-22 08:56:13,057 - app.services.s3_service - INFO - Successfully initialized S3 client for bucket: ladifilecheck
+2025-08-22 08:56:13,287 - app.services.s3_service - INFO - Successfully read file content from S3: reports/evaluation_report_2_a686592596974235b75baa508bcd962d.pdf (5860 bytes)
+2025-08-22 08:56:13,288 - app.routes.upload_routes - INFO - Downloading PDF from local storage: reports/evaluation_report_2_a686592596974235b75baa508bcd962d.pdf, size: 5860 bytes
+2025-08-22 08:56:13,289 - app.routes.upload_routes - INFO - File content appears to be valid PDF (source: local)
+2025-08-22 08:56:13,642 - werkzeug - INFO - 127.0.0.1 - - [22/Aug/2025 08:56:13] "GET /api/upload/public/evaluation/2/download-file HTTP/1.1" 200 -
+2025-08-22 08:56:24,780 - app.services.s3_service - INFO - Successfully initialized S3 client for bucket: ladifilecheck
+2025-08-22 08:56:24,988 - app.services.s3_service - INFO - Successfully read file content from S3: reports/evaluation_report_2_a686592596974235b75baa508bcd962d.pdf (5860 bytes)
+2025-08-22 08:56:24,989 - app.routes.upload_routes - INFO - Downloading PDF from local storage: reports/evaluation_report_2_a686592596974235b75baa508bcd962d.pdf, size: 5860 bytes
+2025-08-22 08:56:24,990 - app.routes.upload_routes - INFO - File content appears to be valid PDF (source: local)
+2025-08-22 08:56:25,344 - werkzeug - INFO - 127.0.0.1 - - [22/Aug/2025 08:56:25] "GET /api/upload/public/evaluation/2/download-file HTTP/1.1" 200 -
+2025-08-22 08:56:32,246 - werkzeug - INFO - 127.0.0.1 - - [22/Aug/2025 08:56:32] "OPTIONS /api/upload/clear-old-download-urls HTTP/1.1" 200 -
+2025-08-22 08:56:34,009 - app.routes.upload_routes - INFO - Cleared old download URLs for user 1
+2025-08-22 08:56:34,010 - werkzeug - INFO - 127.0.0.1 - - [22/Aug/2025 08:56:34] "POST /api/upload/clear-old-download-urls HTTP/1.1" 200 -
+2025-08-22 08:56:34,032 - werkzeug - INFO - 127.0.0.1 - - [22/Aug/2025 08:56:34] "OPTIONS /api/user/evaluations HTTP/1.1" 200 -
+2025-08-22 08:56:37,691 - werkzeug - INFO - 127.0.0.1 - - [22/Aug/2025 08:56:37] "GET /api/user/evaluations HTTP/1.1" 200 -

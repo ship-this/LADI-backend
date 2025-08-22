@@ -3,7 +3,7 @@ from flask_jwt_extended import jwt_required, get_jwt_identity
 from app.models.user import User, UserRole, db
 from app.models.evaluation import Evaluation, EvaluationStyle, EvaluationStatus
 from app.models.user_session import UserSession
-from app.services.local_storage_service import LocalStorageService
+from app.services.s3_service import S3Service
 from app.services.excel_parser import ExcelParser
 from datetime import datetime, timedelta
 import logging
@@ -183,7 +183,7 @@ def delete_user(user_id):
         
         # Delete user's evaluations and files
         evaluations = Evaluation.query.filter_by(user_id=user_id).all()
-        storage_service = LocalStorageService()
+        storage_service = S3Service()
         
         for evaluation in evaluations:
             try:
@@ -270,7 +270,7 @@ def upload_evaluation_style():
             parse_result = excel_parser.parse_excel_file(temp_file_path)
             
             # Upload to local storage
-            storage_service = LocalStorageService()
+            storage_service = S3Service()
             file_key = f"evaluation_styles/{datetime.now().strftime('%Y/%m/%d')}/{unique_filename}"
             storage_service.upload_file(temp_file_path, file_key)
             
@@ -361,7 +361,7 @@ def delete_evaluation_style(style_id):
             return jsonify({'error': 'Evaluation style not found'}), 404
         
         # Delete from local storage
-        storage_service = LocalStorageService()
+        storage_service = S3Service()
         try:
             storage_service.delete_file(style.file_s3_key)
         except Exception as e:
