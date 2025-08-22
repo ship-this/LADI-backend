@@ -85,3 +85,533 @@
 2025-08-22 09:54:49,471 - werkzeug - INFO - 127.0.0.1 - - [22/Aug/2025 09:54:49] "GET /api/user/evaluations HTTP/1.1" 200 -
 2025-08-22 09:54:54,992 - werkzeug - INFO - 127.0.0.1 - - [22/Aug/2025 09:54:54] "OPTIONS /api/user/profile HTTP/1.1" 200 -
 2025-08-22 09:54:56,405 - werkzeug - INFO - 127.0.0.1 - - [22/Aug/2025 09:54:56] "GET /api/user/profile HTTP/1.1" 200 -
+2025-08-22 15:21:23,382 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-08-22 15:21:23,384 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-08-22 15:21:40,241 - werkzeug - INFO - 127.0.0.1 - - [22/Aug/2025 15:21:40] "OPTIONS /api/user/profile HTTP/1.1" 200 -
+2025-08-22 15:21:40,247 - werkzeug - INFO - 127.0.0.1 - - [22/Aug/2025 15:21:40] "[31m[1mGET /api/user/profile HTTP/1.1[0m" 401 -
+2025-08-22 15:21:40,327 - werkzeug - INFO - 127.0.0.1 - - [22/Aug/2025 15:21:40] "OPTIONS /api/auth/logout HTTP/1.1" 200 -
+2025-08-22 15:21:40,330 - werkzeug - INFO - 127.0.0.1 - - [22/Aug/2025 15:21:40] "OPTIONS /api/auth/logout HTTP/1.1" 200 -
+2025-08-22 15:21:40,342 - werkzeug - INFO - 127.0.0.1 - - [22/Aug/2025 15:21:40] "[31m[1mPOST /api/auth/logout HTTP/1.1[0m" 401 -
+2025-08-22 15:21:40,344 - werkzeug - INFO - 127.0.0.1 - - [22/Aug/2025 15:21:40] "[31m[1mPOST /api/auth/logout HTTP/1.1[0m" 401 -
+2025-08-22 15:21:40,434 - werkzeug - INFO - 127.0.0.1 - - [22/Aug/2025 15:21:40] "[31m[1mPOST /api/auth/logout HTTP/1.1[0m" 401 -
+2025-08-22 15:21:40,443 - werkzeug - INFO - 127.0.0.1 - - [22/Aug/2025 15:21:40] "[31m[1mPOST /api/auth/logout HTTP/1.1[0m" 401 -
+2025-08-22 15:21:40,449 - werkzeug - INFO - 127.0.0.1 - - [22/Aug/2025 15:21:40] "[31m[1mPOST /api/auth/logout HTTP/1.1[0m" 401 -
+2025-08-22 15:21:43,309 - werkzeug - INFO - 127.0.0.1 - - [22/Aug/2025 15:21:43] "OPTIONS /api/auth/login HTTP/1.1" 200 -
+2025-08-22 15:21:45,319 - app.routes.auth_routes - INFO - User logged in: devnexus.enthusiast@gmail.com
+2025-08-22 15:21:46,676 - werkzeug - INFO - 127.0.0.1 - - [22/Aug/2025 15:21:46] "POST /api/auth/login HTTP/1.1" 200 -
+2025-08-22 15:21:46,684 - werkzeug - INFO - 127.0.0.1 - - [22/Aug/2025 15:21:46] "OPTIONS /api/upload/clear-old-download-urls HTTP/1.1" 200 -
+2025-08-22 15:21:50,016 - app.routes.upload_routes - INFO - Cleared old download URLs for user 8
+2025-08-22 15:21:50,017 - werkzeug - INFO - 127.0.0.1 - - [22/Aug/2025 15:21:50] "POST /api/upload/clear-old-download-urls HTTP/1.1" 200 -
+2025-08-22 15:21:50,024 - werkzeug - INFO - 127.0.0.1 - - [22/Aug/2025 15:21:50] "OPTIONS /api/user/evaluations HTTP/1.1" 200 -
+2025-08-22 15:21:54,080 - werkzeug - INFO - 127.0.0.1 - - [22/Aug/2025 15:21:54] "GET /api/user/evaluations HTTP/1.1" 200 -
+2025-08-22 15:22:00,394 - werkzeug - INFO - 127.0.0.1 - - [22/Aug/2025 15:22:00] "OPTIONS /api/upload/evaluate HTTP/1.1" 200 -
+2025-08-22 15:22:01,432 - app.routes.upload_routes - INFO - File saved temporarily: temp_uploads\4b0b21b433fb4d43bb433d9e235d3a74.docx
+2025-08-22 15:22:06,130 - app.services.s3_service - INFO - Successfully initialized S3 client for bucket: ladifilecheck
+2025-08-22 15:22:27,030 - app.services.s3_service - INFO - Successfully uploaded temp_uploads\4b0b21b433fb4d43bb433d9e235d3a74.docx to S3: original_files/4b0b21b433fb4d43bb433d9e235d3a74.docx
+2025-08-22 15:22:27,031 - app.routes.upload_routes - INFO - Original file uploaded to local storage: original_files/4b0b21b433fb4d43bb433d9e235d3a74.docx
+2025-08-22 15:22:29,376 - app.routes.upload_routes - INFO - Starting evaluation for user 8, evaluation ID: 17
+2025-08-22 15:22:29,377 - app.routes.upload_routes - INFO - Evaluation methods: ['basic'], Templates: []
+2025-08-22 15:22:29,702 - app.services.docx_parser - INFO - Starting DOCX parsing for file: temp_uploads\4b0b21b433fb4d43bb433d9e235d3a74.docx
+2025-08-22 15:22:30,250 - app.services.docx_parser - INFO - DOCX parsing completed. Extracted 9561 characters, 1653 words
+2025-08-22 15:22:30,251 - app.routes.upload_routes - INFO - Starting multi-method evaluation for user 8
+2025-08-22 15:22:30,251 - app.routes.upload_routes - INFO - Methods: ['basic'], Templates: []
+2025-08-22 15:22:30,252 - app.services.gpt_evaluator - ERROR - Failed to initialize OpenAI client: Client.__init__() got an unexpected keyword argument 'proxies'
+2025-08-22 15:22:30,253 - app.services.gpt_evaluator - ERROR - Using mock evaluation - this will provide fake scores for testing only!
+2025-08-22 15:22:30,253 - app.services.gpt_evaluator - ERROR - Failed to initialize OpenAI client: Client.__init__() got an unexpected keyword argument 'proxies'
+2025-08-22 15:22:30,253 - app.services.gpt_evaluator - ERROR - Using mock evaluation - this will provide fake scores for testing only!
+2025-08-22 15:22:30,254 - app.services.gpt_evaluator - INFO - Starting manuscript evaluation for 9561 characters
+2025-08-22 15:22:30,427 - app.services.gpt_evaluator - INFO - Completed manuscript evaluation
+2025-08-22 15:22:30,427 - app.routes.upload_routes - INFO - Evaluation completed successfully for user 8
+2025-08-22 15:22:33,082 - app.services.pdf_generator - INFO - Generating PDF report with evaluation_results type: <class 'dict'>
+2025-08-22 15:22:33,097 - app.services.pdf_generator - INFO - PDF report generated successfully: temp_uploads\evaluation_report_17_9598763719d346a0aeb4c0e65e149479.pdf
+2025-08-22 15:22:37,722 - app.services.s3_service - INFO - Successfully initialized S3 client for bucket: ladifilecheck
+2025-08-22 15:22:38,495 - app.services.s3_service - INFO - Successfully uploaded temp_uploads\evaluation_report_17_9598763719d346a0aeb4c0e65e149479.pdf to S3: reports/evaluation_report_17_9598763719d346a0aeb4c0e65e149479.pdf
+2025-08-22 15:22:38,496 - app.routes.upload_routes - ERROR - Failed to upload report to local storage: 'S3Service' object has no attribute 'generate_download_url'
+2025-08-22 15:22:41,124 - werkzeug - INFO - 127.0.0.1 - - [22/Aug/2025 15:22:41] "POST /api/upload/evaluate HTTP/1.1" 200 -
+2025-08-22 15:30:57,492 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-08-22 15:30:57,492 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-08-22 15:31:44,567 - werkzeug - INFO - 127.0.0.1 - - [22/Aug/2025 15:31:44] "OPTIONS /api/upload/evaluate HTTP/1.1" 200 -
+2025-08-22 15:31:45,550 - app.routes.upload_routes - INFO - File saved temporarily: temp_uploads\02c52e11b4854cf8a153fa61a281145d.docx
+2025-08-22 15:31:50,213 - app.services.s3_service - INFO - Successfully initialized S3 client for bucket: ladifilecheck
+2025-08-22 15:32:12,988 - app.services.s3_service - INFO - Successfully uploaded temp_uploads\02c52e11b4854cf8a153fa61a281145d.docx to S3: original_files/02c52e11b4854cf8a153fa61a281145d.docx
+2025-08-22 15:32:12,989 - app.routes.upload_routes - INFO - Original file uploaded to local storage: original_files/02c52e11b4854cf8a153fa61a281145d.docx
+2025-08-22 15:32:15,286 - app.routes.upload_routes - INFO - Starting evaluation for user 8, evaluation ID: 18
+2025-08-22 15:32:15,287 - app.routes.upload_routes - INFO - Evaluation methods: ['basic'], Templates: []
+2025-08-22 15:32:15,611 - app.services.docx_parser - INFO - Starting DOCX parsing for file: temp_uploads\02c52e11b4854cf8a153fa61a281145d.docx
+2025-08-22 15:32:16,126 - app.services.docx_parser - INFO - DOCX parsing completed. Extracted 9561 characters, 1653 words
+2025-08-22 15:32:16,126 - app.routes.upload_routes - INFO - Starting multi-method evaluation for user 8
+2025-08-22 15:32:16,127 - app.routes.upload_routes - INFO - Methods: ['basic'], Templates: []
+2025-08-22 15:32:16,127 - app.services.gpt_evaluator - ERROR - Failed to initialize OpenAI client: Client.__init__() got an unexpected keyword argument 'proxies'
+2025-08-22 15:32:16,127 - app.services.gpt_evaluator - ERROR - Using mock evaluation - this will provide fake scores for testing only!
+2025-08-22 15:32:16,128 - app.services.gpt_evaluator - ERROR - Failed to initialize OpenAI client: Client.__init__() got an unexpected keyword argument 'proxies'
+2025-08-22 15:32:16,128 - app.services.gpt_evaluator - ERROR - Using mock evaluation - this will provide fake scores for testing only!
+2025-08-22 15:32:16,128 - app.services.gpt_evaluator - INFO - Starting manuscript evaluation for 9561 characters
+2025-08-22 15:32:16,129 - app.services.gpt_evaluator - ERROR - WARNING: No OpenAI client available - evaluation cannot proceed!
+2025-08-22 15:32:16,129 - app.services.gpt_evaluator - ERROR - WARNING: Set OPENAI_API_KEY environment variable for real evaluation.
+2025-08-22 15:32:16,129 - app.services.gpt_evaluator - ERROR - Error in comprehensive evaluation: OpenAI client not available. Please set OPENAI_API_KEY environment variable.
+2025-08-22 15:32:16,129 - app.services.gpt_evaluator - ERROR - Error in manuscript evaluation: Evaluation failed: OpenAI client not available. Please set OPENAI_API_KEY environment variable.
+2025-08-22 15:32:16,130 - app.routes.upload_routes - ERROR - Basic evaluation failed: Manuscript evaluation failed: Evaluation failed: OpenAI client not available. Please set OPENAI_API_KEY environment variable.
+2025-08-22 15:32:16,130 - app.routes.upload_routes - ERROR - Evaluation failed for user 8: Manuscript evaluation failed: Evaluation failed: OpenAI client not available. Please set OPENAI_API_KEY environment variable.
+2025-08-22 15:32:16,130 - app.routes.upload_routes - ERROR - Evaluation failed: Manuscript evaluation failed: Evaluation failed: OpenAI client not available. Please set OPENAI_API_KEY environment variable.
+2025-08-22 15:32:18,752 - werkzeug - INFO - 127.0.0.1 - - [22/Aug/2025 15:32:18] "[35m[1mPOST /api/upload/evaluate HTTP/1.1[0m" 503 -
+2025-08-22 15:33:07,811 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-08-22 15:33:07,812 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-08-22 15:33:21,462 - werkzeug - INFO - 127.0.0.1 - - [22/Aug/2025 15:33:21] "OPTIONS /api/upload/evaluate HTTP/1.1" 200 -
+2025-08-22 15:33:22,458 - app.routes.upload_routes - INFO - File saved temporarily: temp_uploads\10025df5213f455f8eb94cd8d81ae0db.docx
+2025-08-22 15:33:27,649 - app.services.s3_service - INFO - Successfully initialized S3 client for bucket: ladifilecheck
+2025-08-22 15:33:51,727 - app.services.s3_service - INFO - Successfully uploaded temp_uploads\10025df5213f455f8eb94cd8d81ae0db.docx to S3: original_files/10025df5213f455f8eb94cd8d81ae0db.docx
+2025-08-22 15:33:51,728 - app.routes.upload_routes - INFO - Original file uploaded to local storage: original_files/10025df5213f455f8eb94cd8d81ae0db.docx
+2025-08-22 15:33:54,193 - app.routes.upload_routes - INFO - Starting evaluation for user 8, evaluation ID: 19
+2025-08-22 15:33:54,193 - app.routes.upload_routes - INFO - Evaluation methods: ['basic'], Templates: []
+2025-08-22 15:33:54,520 - app.services.docx_parser - INFO - Starting DOCX parsing for file: temp_uploads\10025df5213f455f8eb94cd8d81ae0db.docx
+2025-08-22 15:33:55,038 - app.services.docx_parser - INFO - DOCX parsing completed. Extracted 9561 characters, 1653 words
+2025-08-22 15:33:55,039 - app.routes.upload_routes - INFO - Starting multi-method evaluation for user 8
+2025-08-22 15:33:55,039 - app.routes.upload_routes - INFO - Methods: ['basic'], Templates: []
+2025-08-22 15:33:55,039 - app.services.gpt_evaluator - ERROR - Failed to initialize OpenAI client: Client.__init__() got an unexpected keyword argument 'proxies'
+2025-08-22 15:33:55,040 - app.services.gpt_evaluator - ERROR - Using mock evaluation - this will provide fake scores for testing only!
+2025-08-22 15:33:55,040 - app.services.gpt_evaluator - ERROR - Failed to initialize OpenAI client: Client.__init__() got an unexpected keyword argument 'proxies'
+2025-08-22 15:33:55,040 - app.services.gpt_evaluator - ERROR - Using mock evaluation - this will provide fake scores for testing only!
+2025-08-22 15:33:55,040 - app.services.gpt_evaluator - INFO - Starting manuscript evaluation for 9561 characters
+2025-08-22 15:33:55,041 - app.services.gpt_evaluator - ERROR - WARNING: No OpenAI client available - evaluation cannot proceed!
+2025-08-22 15:33:55,041 - app.services.gpt_evaluator - ERROR - WARNING: Set OPENAI_API_KEY environment variable for real evaluation.
+2025-08-22 15:33:55,041 - app.services.gpt_evaluator - ERROR - Error in comprehensive evaluation: OpenAI client not available. Please set OPENAI_API_KEY environment variable.
+2025-08-22 15:33:55,041 - app.services.gpt_evaluator - ERROR - Error in manuscript evaluation: Evaluation failed: OpenAI client not available. Please set OPENAI_API_KEY environment variable.
+2025-08-22 15:33:55,041 - app.routes.upload_routes - ERROR - Basic evaluation failed: Manuscript evaluation failed: Evaluation failed: OpenAI client not available. Please set OPENAI_API_KEY environment variable.
+2025-08-22 15:33:55,041 - app.routes.upload_routes - ERROR - Evaluation failed for user 8: Manuscript evaluation failed: Evaluation failed: OpenAI client not available. Please set OPENAI_API_KEY environment variable.
+2025-08-22 15:33:55,042 - app.routes.upload_routes - ERROR - Evaluation failed: Manuscript evaluation failed: Evaluation failed: OpenAI client not available. Please set OPENAI_API_KEY environment variable.
+2025-08-22 15:33:57,384 - werkzeug - INFO - 127.0.0.1 - - [22/Aug/2025 15:33:57] "[35m[1mPOST /api/upload/evaluate HTTP/1.1[0m" 503 -
+2025-08-22 15:34:50,763 - werkzeug - INFO - 127.0.0.1 - - [22/Aug/2025 15:34:50] "OPTIONS /api/user/profile HTTP/1.1" 200 -
+2025-08-22 15:34:52,093 - werkzeug - INFO - 127.0.0.1 - - [22/Aug/2025 15:34:52] "GET /api/user/profile HTTP/1.1" 200 -
+2025-08-22 15:37:30,969 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-08-22 15:37:30,970 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-08-22 15:37:37,184 - werkzeug - INFO - 127.0.0.1 - - [22/Aug/2025 15:37:37] "OPTIONS /api/upload/evaluate HTTP/1.1" 200 -
+2025-08-22 15:37:38,200 - app.routes.upload_routes - INFO - File saved temporarily: temp_uploads\024b57c0020f4f00827a530537743218.docx
+2025-08-22 15:37:42,930 - app.services.s3_service - INFO - Successfully initialized S3 client for bucket: ladifilecheck
+2025-08-22 15:38:04,290 - app.services.s3_service - INFO - Successfully uploaded temp_uploads\024b57c0020f4f00827a530537743218.docx to S3: original_files/024b57c0020f4f00827a530537743218.docx
+2025-08-22 15:38:04,291 - app.routes.upload_routes - INFO - Original file uploaded to local storage: original_files/024b57c0020f4f00827a530537743218.docx
+2025-08-22 15:38:06,727 - app.routes.upload_routes - INFO - Starting evaluation for user 8, evaluation ID: 20
+2025-08-22 15:38:06,727 - app.routes.upload_routes - INFO - Evaluation methods: ['basic'], Templates: []
+2025-08-22 15:38:07,051 - app.services.docx_parser - INFO - Starting DOCX parsing for file: temp_uploads\024b57c0020f4f00827a530537743218.docx
+2025-08-22 15:38:07,518 - app.services.docx_parser - INFO - DOCX parsing completed. Extracted 9561 characters, 1653 words
+2025-08-22 15:38:07,518 - app.routes.upload_routes - INFO - Starting multi-method evaluation for user 8
+2025-08-22 15:38:07,519 - app.routes.upload_routes - INFO - Methods: ['basic'], Templates: []
+2025-08-22 15:38:07,519 - app.services.gpt_evaluator - ERROR - Failed to initialize OpenAI client: Client.__init__() got an unexpected keyword argument 'proxies'
+2025-08-22 15:38:07,519 - app.services.gpt_evaluator - ERROR - Using mock evaluation - this will provide fake scores for testing only!
+2025-08-22 15:38:07,520 - app.services.gpt_evaluator - ERROR - Failed to initialize OpenAI client: Client.__init__() got an unexpected keyword argument 'proxies'
+2025-08-22 15:38:07,520 - app.services.gpt_evaluator - ERROR - Using mock evaluation - this will provide fake scores for testing only!
+2025-08-22 15:38:07,520 - app.services.gpt_evaluator - INFO - Starting manuscript evaluation for 9561 characters
+2025-08-22 15:38:07,520 - app.services.gpt_evaluator - ERROR - WARNING: No OpenAI client available - evaluation cannot proceed!
+2025-08-22 15:38:07,520 - app.services.gpt_evaluator - ERROR - WARNING: Set OPENAI_API_KEY environment variable for real evaluation.
+2025-08-22 15:38:07,520 - app.services.gpt_evaluator - ERROR - Error in comprehensive evaluation: OpenAI client not available. Please set OPENAI_API_KEY environment variable.
+2025-08-22 15:38:07,520 - app.services.gpt_evaluator - ERROR - Error in manuscript evaluation: Evaluation failed: OpenAI client not available. Please set OPENAI_API_KEY environment variable.
+2025-08-22 15:38:07,521 - app.routes.upload_routes - ERROR - Basic evaluation failed: Manuscript evaluation failed: Evaluation failed: OpenAI client not available. Please set OPENAI_API_KEY environment variable.
+2025-08-22 15:38:07,521 - app.routes.upload_routes - ERROR - Evaluation failed for user 8: Manuscript evaluation failed: Evaluation failed: OpenAI client not available. Please set OPENAI_API_KEY environment variable.
+2025-08-22 15:38:07,521 - app.routes.upload_routes - ERROR - Evaluation failed: Manuscript evaluation failed: Evaluation failed: OpenAI client not available. Please set OPENAI_API_KEY environment variable.
+2025-08-22 15:38:09,833 - werkzeug - INFO - 127.0.0.1 - - [22/Aug/2025 15:38:09] "[35m[1mPOST /api/upload/evaluate HTTP/1.1[0m" 503 -
+2025-08-22 15:41:07,311 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-08-22 15:41:07,313 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-08-22 15:41:11,968 - werkzeug - INFO - 127.0.0.1 - - [22/Aug/2025 15:41:11] "OPTIONS /api/upload/evaluate HTTP/1.1" 200 -
+2025-08-22 15:41:12,947 - app.routes.upload_routes - INFO - File saved temporarily: temp_uploads\5b613994386f47f7b7802fb89e28af09.docx
+2025-08-22 15:41:17,027 - app.services.s3_service - INFO - Successfully initialized S3 client for bucket: ladifilecheck
+2025-08-22 15:41:39,399 - app.services.s3_service - INFO - Successfully uploaded temp_uploads\5b613994386f47f7b7802fb89e28af09.docx to S3: original_files/5b613994386f47f7b7802fb89e28af09.docx
+2025-08-22 15:41:39,400 - app.routes.upload_routes - INFO - Original file uploaded to local storage: original_files/5b613994386f47f7b7802fb89e28af09.docx
+2025-08-22 15:41:41,666 - app.routes.upload_routes - INFO - Starting evaluation for user 8, evaluation ID: 21
+2025-08-22 15:41:41,667 - app.routes.upload_routes - INFO - Evaluation methods: ['basic'], Templates: []
+2025-08-22 15:41:41,990 - app.services.docx_parser - INFO - Starting DOCX parsing for file: temp_uploads\5b613994386f47f7b7802fb89e28af09.docx
+2025-08-22 15:41:42,455 - app.services.docx_parser - INFO - DOCX parsing completed. Extracted 9561 characters, 1653 words
+2025-08-22 15:41:42,457 - app.routes.upload_routes - INFO - Starting multi-method evaluation for user 8
+2025-08-22 15:41:42,457 - app.routes.upload_routes - INFO - Methods: ['basic'], Templates: []
+2025-08-22 15:41:42,457 - app.services.gpt_evaluator - ERROR - Failed to initialize OpenAI client: Client.__init__() got an unexpected keyword argument 'proxies'
+2025-08-22 15:41:42,457 - app.services.gpt_evaluator - ERROR - Using mock evaluation - this will provide fake scores for testing only!
+2025-08-22 15:41:42,458 - app.services.gpt_evaluator - ERROR - Failed to initialize OpenAI client: Client.__init__() got an unexpected keyword argument 'proxies'
+2025-08-22 15:41:42,458 - app.services.gpt_evaluator - ERROR - Using mock evaluation - this will provide fake scores for testing only!
+2025-08-22 15:41:42,458 - app.services.gpt_evaluator - INFO - Starting manuscript evaluation for 9561 characters
+2025-08-22 15:41:42,458 - app.services.gpt_evaluator - ERROR - WARNING: No OpenAI client available - evaluation cannot proceed!
+2025-08-22 15:41:42,459 - app.services.gpt_evaluator - ERROR - WARNING: Set OPENAI_API_KEY environment variable for real evaluation.
+2025-08-22 15:41:42,459 - app.services.gpt_evaluator - ERROR - Error in comprehensive evaluation: OpenAI client not available. Please set OPENAI_API_KEY environment variable.
+2025-08-22 15:41:42,459 - app.services.gpt_evaluator - ERROR - Error in manuscript evaluation: Evaluation failed: OpenAI client not available. Please set OPENAI_API_KEY environment variable.
+2025-08-22 15:41:42,459 - app.routes.upload_routes - ERROR - Basic evaluation failed: Manuscript evaluation failed: Evaluation failed: OpenAI client not available. Please set OPENAI_API_KEY environment variable.
+2025-08-22 15:41:42,459 - app.routes.upload_routes - ERROR - Evaluation failed for user 8: Manuscript evaluation failed: Evaluation failed: OpenAI client not available. Please set OPENAI_API_KEY environment variable.
+2025-08-22 15:41:42,459 - app.routes.upload_routes - ERROR - Evaluation failed: Manuscript evaluation failed: Evaluation failed: OpenAI client not available. Please set OPENAI_API_KEY environment variable.
+2025-08-22 15:41:44,722 - werkzeug - INFO - 127.0.0.1 - - [22/Aug/2025 15:41:44] "[35m[1mPOST /api/upload/evaluate HTTP/1.1[0m" 503 -
+2025-08-22 15:45:57,635 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-08-22 15:45:57,636 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-08-22 15:46:02,273 - werkzeug - INFO - 127.0.0.1 - - [22/Aug/2025 15:46:02] "OPTIONS /api/upload/evaluate HTTP/1.1" 200 -
+2025-08-22 15:46:02,282 - werkzeug - INFO - 127.0.0.1 - - [22/Aug/2025 15:46:02] "[33mPOST /api/upload/evaluate HTTP/1.1[0m" 404 -
+2025-08-22 15:46:09,235 - werkzeug - INFO - 127.0.0.1 - - [22/Aug/2025 15:46:09] "OPTIONS /api/upload/evaluate HTTP/1.1" 200 -
+2025-08-22 15:46:09,240 - werkzeug - INFO - 127.0.0.1 - - [22/Aug/2025 15:46:09] "[33mPOST /api/upload/evaluate HTTP/1.1[0m" 404 -
+2025-08-22 15:46:10,941 - werkzeug - INFO - 127.0.0.1 - - [22/Aug/2025 15:46:10] "OPTIONS /api/auth/logout HTTP/1.1" 200 -
+2025-08-22 15:46:10,977 - app.routes.auth_routes - INFO - User logged out: 8
+2025-08-22 15:46:10,978 - werkzeug - INFO - 127.0.0.1 - - [22/Aug/2025 15:46:10] "POST /api/auth/logout HTTP/1.1" 200 -
+2025-08-22 15:46:11,892 - werkzeug - INFO - 127.0.0.1 - - [22/Aug/2025 15:46:11] "OPTIONS /api/auth/login HTTP/1.1" 200 -
+2025-08-22 15:46:12,126 - app.routes.auth_routes - INFO - User logged in: devnexus.enthusiast@gmail.com
+2025-08-22 15:46:12,127 - werkzeug - INFO - 127.0.0.1 - - [22/Aug/2025 15:46:12] "POST /api/auth/login HTTP/1.1" 200 -
+2025-08-22 15:46:12,133 - werkzeug - INFO - 127.0.0.1 - - [22/Aug/2025 15:46:12] "OPTIONS /api/upload/clear-old-download-urls HTTP/1.1" 200 -
+2025-08-22 15:46:12,139 - app.routes.upload_routes - INFO - Cleared old download URLs for user 2
+2025-08-22 15:46:12,140 - werkzeug - INFO - 127.0.0.1 - - [22/Aug/2025 15:46:12] "POST /api/upload/clear-old-download-urls HTTP/1.1" 200 -
+2025-08-22 15:46:12,143 - werkzeug - INFO - 127.0.0.1 - - [22/Aug/2025 15:46:12] "OPTIONS /api/user/evaluations HTTP/1.1" 200 -
+2025-08-22 15:46:12,157 - werkzeug - INFO - 127.0.0.1 - - [22/Aug/2025 15:46:12] "GET /api/user/evaluations HTTP/1.1" 200 -
+2025-08-22 15:46:15,570 - werkzeug - INFO - 127.0.0.1 - - [22/Aug/2025 15:46:15] "OPTIONS /api/upload/evaluate HTTP/1.1" 200 -
+2025-08-22 15:46:15,579 - app.routes.upload_routes - INFO - File saved temporarily: temp_uploads\09f107f4c00140aaa4d919802f9f3f98.docx
+2025-08-22 15:46:22,435 - app.services.s3_service - ERROR - Access denied to S3 bucket 'placeholder-bucket'
+2025-08-22 15:46:22,442 - app.services.s3_service - INFO - Successfully uploaded temp_uploads\09f107f4c00140aaa4d919802f9f3f98.docx to local storage: temp_uploads\original_files/09f107f4c00140aaa4d919802f9f3f98.docx
+2025-08-22 15:46:22,442 - app.routes.upload_routes - INFO - Original file uploaded to local storage: original_files/09f107f4c00140aaa4d919802f9f3f98.docx
+2025-08-22 15:46:22,448 - app.routes.upload_routes - INFO - Starting evaluation for user 2, evaluation ID: 41
+2025-08-22 15:46:22,449 - app.routes.upload_routes - INFO - Evaluation methods: ['basic'], Templates: []
+2025-08-22 15:46:22,449 - app.services.docx_parser - INFO - Starting DOCX parsing for file: temp_uploads\09f107f4c00140aaa4d919802f9f3f98.docx
+2025-08-22 15:46:22,929 - app.services.docx_parser - INFO - DOCX parsing completed. Extracted 9561 characters, 1653 words
+2025-08-22 15:46:22,929 - app.routes.upload_routes - INFO - Starting multi-method evaluation for user 2
+2025-08-22 15:46:22,929 - app.routes.upload_routes - INFO - Methods: ['basic'], Templates: []
+2025-08-22 15:46:22,930 - app.services.gpt_evaluator - INFO - OpenAI API key found: Yes
+2025-08-22 15:46:22,930 - app.services.gpt_evaluator - INFO - API key starts with: sk-proj-u1...
+2025-08-22 15:46:22,930 - app.services.gpt_evaluator - ERROR - Failed to initialize OpenAI client: Client.__init__() got an unexpected keyword argument 'proxies'
+2025-08-22 15:46:22,930 - app.services.gpt_evaluator - ERROR - Using mock evaluation - this will provide fake scores for testing only!
+2025-08-22 15:46:22,931 - app.services.gpt_evaluator - INFO - OpenAI API key found: Yes
+2025-08-22 15:46:22,931 - app.services.gpt_evaluator - INFO - API key starts with: sk-proj-u1...
+2025-08-22 15:46:22,932 - app.services.gpt_evaluator - ERROR - Failed to initialize OpenAI client: Client.__init__() got an unexpected keyword argument 'proxies'
+2025-08-22 15:46:22,932 - app.services.gpt_evaluator - ERROR - Using mock evaluation - this will provide fake scores for testing only!
+2025-08-22 15:46:22,932 - app.services.gpt_evaluator - INFO - Starting manuscript evaluation for 9561 characters
+2025-08-22 15:46:22,932 - app.services.gpt_evaluator - ERROR - WARNING: No OpenAI client available - evaluation cannot proceed!
+2025-08-22 15:46:22,932 - app.services.gpt_evaluator - ERROR - WARNING: Set OPENAI_API_KEY environment variable for real evaluation.
+2025-08-22 15:46:22,932 - app.services.gpt_evaluator - ERROR - Error in comprehensive evaluation: OpenAI client not available. Please set OPENAI_API_KEY environment variable.
+2025-08-22 15:46:22,933 - app.services.gpt_evaluator - ERROR - Error in manuscript evaluation: Evaluation failed: OpenAI client not available. Please set OPENAI_API_KEY environment variable.
+2025-08-22 15:46:22,933 - app.routes.upload_routes - ERROR - Basic evaluation failed: Manuscript evaluation failed: Evaluation failed: OpenAI client not available. Please set OPENAI_API_KEY environment variable.
+2025-08-22 15:46:22,933 - app.routes.upload_routes - ERROR - Evaluation failed for user 2: Manuscript evaluation failed: Evaluation failed: OpenAI client not available. Please set OPENAI_API_KEY environment variable.
+2025-08-22 15:46:22,933 - app.routes.upload_routes - ERROR - Evaluation failed: Manuscript evaluation failed: Evaluation failed: OpenAI client not available. Please set OPENAI_API_KEY environment variable.
+2025-08-22 15:46:22,937 - werkzeug - INFO - 127.0.0.1 - - [22/Aug/2025 15:46:22] "[35m[1mPOST /api/upload/evaluate HTTP/1.1[0m" 503 -
+2025-08-22 15:47:12,172 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-08-22 15:47:12,172 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-08-22 15:48:22,497 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-08-22 15:48:22,497 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-08-22 15:48:31,317 - werkzeug - INFO - 127.0.0.1 - - [22/Aug/2025 15:48:31] "OPTIONS /api/user/profile HTTP/1.1" 200 -
+2025-08-22 15:48:31,325 - werkzeug - INFO - 127.0.0.1 - - [22/Aug/2025 15:48:31] "GET /api/user/profile HTTP/1.1" 200 -
+2025-08-22 15:48:35,782 - werkzeug - INFO - 127.0.0.1 - - [22/Aug/2025 15:48:35] "OPTIONS /api/upload/evaluate HTTP/1.1" 200 -
+2025-08-22 15:48:35,790 - app.routes.upload_routes - INFO - File saved temporarily: temp_uploads\e133eaa1ee1543e1b3dda78f0f71a17a.docx
+2025-08-22 15:48:42,314 - app.services.s3_service - ERROR - Access denied to S3 bucket 'placeholder-bucket'
+2025-08-22 15:48:42,320 - app.services.s3_service - INFO - Successfully uploaded temp_uploads\e133eaa1ee1543e1b3dda78f0f71a17a.docx to local storage: temp_uploads\original_files/e133eaa1ee1543e1b3dda78f0f71a17a.docx
+2025-08-22 15:48:42,321 - app.routes.upload_routes - INFO - Original file uploaded to local storage: original_files/e133eaa1ee1543e1b3dda78f0f71a17a.docx
+2025-08-22 15:48:42,334 - app.routes.upload_routes - INFO - Starting evaluation for user 2, evaluation ID: 42
+2025-08-22 15:48:42,335 - app.routes.upload_routes - INFO - Evaluation methods: ['basic'], Templates: []
+2025-08-22 15:48:42,336 - app.services.docx_parser - INFO - Starting DOCX parsing for file: temp_uploads\e133eaa1ee1543e1b3dda78f0f71a17a.docx
+2025-08-22 15:48:42,972 - app.services.docx_parser - INFO - DOCX parsing completed. Extracted 9561 characters, 1653 words
+2025-08-22 15:48:42,973 - app.routes.upload_routes - INFO - Starting multi-method evaluation for user 2
+2025-08-22 15:48:42,973 - app.routes.upload_routes - INFO - Methods: ['basic'], Templates: []
+2025-08-22 15:48:42,973 - app.services.gpt_evaluator - INFO - OpenAI API key found: Yes
+2025-08-22 15:48:42,974 - app.services.gpt_evaluator - INFO - API key starts with: sk-proj-u1...
+2025-08-22 15:48:42,974 - app.services.gpt_evaluator - ERROR - Failed to initialize OpenAI client: Client.__init__() got an unexpected keyword argument 'proxies'
+2025-08-22 15:48:42,974 - app.services.gpt_evaluator - ERROR - Using mock evaluation - this will provide fake scores for testing only!
+2025-08-22 15:48:42,974 - app.services.gpt_evaluator - INFO - OpenAI API key found: Yes
+2025-08-22 15:48:42,974 - app.services.gpt_evaluator - INFO - API key starts with: sk-proj-u1...
+2025-08-22 15:48:42,975 - app.services.gpt_evaluator - ERROR - Failed to initialize OpenAI client: Client.__init__() got an unexpected keyword argument 'proxies'
+2025-08-22 15:48:42,975 - app.services.gpt_evaluator - ERROR - Using mock evaluation - this will provide fake scores for testing only!
+2025-08-22 15:48:42,975 - app.services.gpt_evaluator - INFO - Starting manuscript evaluation for 9561 characters
+2025-08-22 15:48:42,975 - app.services.gpt_evaluator - ERROR - WARNING: No OpenAI client available - evaluation cannot proceed!
+2025-08-22 15:48:42,975 - app.services.gpt_evaluator - ERROR - WARNING: Set OPENAI_API_KEY environment variable for real evaluation.
+2025-08-22 15:48:42,975 - app.services.gpt_evaluator - ERROR - Error in comprehensive evaluation: OpenAI client not available. Please set OPENAI_API_KEY environment variable.
+2025-08-22 15:48:42,976 - app.services.gpt_evaluator - ERROR - Error in manuscript evaluation: Evaluation failed: OpenAI client not available. Please set OPENAI_API_KEY environment variable.
+2025-08-22 15:48:42,976 - app.routes.upload_routes - ERROR - Basic evaluation failed: Manuscript evaluation failed: Evaluation failed: OpenAI client not available. Please set OPENAI_API_KEY environment variable.
+2025-08-22 15:48:42,976 - app.routes.upload_routes - ERROR - Evaluation failed for user 2: Manuscript evaluation failed: Evaluation failed: OpenAI client not available. Please set OPENAI_API_KEY environment variable.
+2025-08-22 15:48:42,976 - app.routes.upload_routes - ERROR - Evaluation failed: Manuscript evaluation failed: Evaluation failed: OpenAI client not available. Please set OPENAI_API_KEY environment variable.
+2025-08-22 15:48:42,981 - werkzeug - INFO - 127.0.0.1 - - [22/Aug/2025 15:48:42] "[35m[1mPOST /api/upload/evaluate HTTP/1.1[0m" 503 -
+2025-08-22 15:50:28,979 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-08-22 15:50:28,980 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-08-22 15:50:32,558 - werkzeug - INFO - 127.0.0.1 - - [22/Aug/2025 15:50:32] "OPTIONS /api/upload/evaluate HTTP/1.1" 200 -
+2025-08-22 15:50:32,590 - app.routes.upload_routes - INFO - File saved temporarily: temp_uploads\2d07b2f4d9244b88babb3e179be8809d.pdf
+2025-08-22 15:50:39,089 - app.services.s3_service - ERROR - Access denied to S3 bucket 'placeholder-bucket'
+2025-08-22 15:50:39,106 - app.services.s3_service - INFO - Successfully uploaded temp_uploads\2d07b2f4d9244b88babb3e179be8809d.pdf to local storage: temp_uploads\original_files/2d07b2f4d9244b88babb3e179be8809d.pdf
+2025-08-22 15:50:39,107 - app.routes.upload_routes - INFO - Original file uploaded to local storage: original_files/2d07b2f4d9244b88babb3e179be8809d.pdf
+2025-08-22 15:50:39,116 - app.routes.upload_routes - INFO - Starting evaluation for user 2, evaluation ID: 43
+2025-08-22 15:50:39,116 - app.routes.upload_routes - INFO - Evaluation methods: ['basic'], Templates: []
+2025-08-22 15:50:39,170 - app.services.pdf_parser - INFO - Extracted text from page 1
+2025-08-22 15:50:39,189 - app.services.pdf_parser - INFO - Extracted text from page 2
+2025-08-22 15:50:39,210 - app.services.pdf_parser - INFO - Extracted text from page 3
+2025-08-22 15:50:39,219 - app.services.pdf_parser - INFO - Extracted text from page 4
+2025-08-22 15:50:39,221 - app.services.pdf_parser - INFO - PDF parsing completed: 4 pages, 568 words, 3649 characters
+2025-08-22 15:50:39,222 - app.routes.upload_routes - INFO - Starting multi-method evaluation for user 2
+2025-08-22 15:50:39,223 - app.routes.upload_routes - INFO - Methods: ['basic'], Templates: []
+2025-08-22 15:50:39,223 - app.services.gpt_evaluator - INFO - OpenAI API key found: Yes
+2025-08-22 15:50:39,223 - app.services.gpt_evaluator - INFO - API key starts with: sk-proj-u1...
+2025-08-22 15:50:39,223 - app.services.gpt_evaluator - ERROR - Failed to initialize OpenAI client: Client.__init__() got an unexpected keyword argument 'proxies'
+2025-08-22 15:50:39,224 - app.services.gpt_evaluator - ERROR - Using mock evaluation - this will provide fake scores for testing only!
+2025-08-22 15:50:39,224 - app.services.gpt_evaluator - INFO - OpenAI API key found: Yes
+2025-08-22 15:50:39,224 - app.services.gpt_evaluator - INFO - API key starts with: sk-proj-u1...
+2025-08-22 15:50:39,224 - app.services.gpt_evaluator - ERROR - Failed to initialize OpenAI client: Client.__init__() got an unexpected keyword argument 'proxies'
+2025-08-22 15:50:39,225 - app.services.gpt_evaluator - ERROR - Using mock evaluation - this will provide fake scores for testing only!
+2025-08-22 15:50:39,225 - app.services.gpt_evaluator - INFO - Starting manuscript evaluation for 3646 characters
+2025-08-22 15:50:39,225 - app.services.gpt_evaluator - ERROR - WARNING: No OpenAI client available - evaluation cannot proceed!
+2025-08-22 15:50:39,225 - app.services.gpt_evaluator - ERROR - WARNING: Set OPENAI_API_KEY environment variable for real evaluation.
+2025-08-22 15:50:39,225 - app.services.gpt_evaluator - ERROR - Error in comprehensive evaluation: OpenAI client not available. Please set OPENAI_API_KEY environment variable.
+2025-08-22 15:50:39,226 - app.services.gpt_evaluator - ERROR - Error in manuscript evaluation: Evaluation failed: OpenAI client not available. Please set OPENAI_API_KEY environment variable.
+2025-08-22 15:50:39,226 - app.routes.upload_routes - ERROR - Basic evaluation failed: Manuscript evaluation failed: Evaluation failed: OpenAI client not available. Please set OPENAI_API_KEY environment variable.
+2025-08-22 15:50:39,226 - app.routes.upload_routes - ERROR - Evaluation failed for user 2: Manuscript evaluation failed: Evaluation failed: OpenAI client not available. Please set OPENAI_API_KEY environment variable.
+2025-08-22 15:50:39,226 - app.routes.upload_routes - ERROR - Evaluation failed: Manuscript evaluation failed: Evaluation failed: OpenAI client not available. Please set OPENAI_API_KEY environment variable.
+2025-08-22 15:50:39,230 - werkzeug - INFO - 127.0.0.1 - - [22/Aug/2025 15:50:39] "[35m[1mPOST /api/upload/evaluate HTTP/1.1[0m" 503 -
+2025-08-22 15:54:53,733 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-08-22 15:54:53,734 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-08-22 15:57:05,822 - werkzeug - INFO - 127.0.0.1 - - [22/Aug/2025 15:57:05] "OPTIONS /api/upload/evaluate HTTP/1.1" 200 -
+2025-08-22 15:57:05,842 - app.routes.upload_routes - INFO - File saved temporarily: temp_uploads\d2be28deb9d6493bbd38e31c87b1359d.pdf
+2025-08-22 15:57:11,808 - app.services.s3_service - ERROR - Access denied to S3 bucket 'placeholder-bucket'
+2025-08-22 15:57:11,810 - app.services.s3_service - INFO - Successfully uploaded temp_uploads\d2be28deb9d6493bbd38e31c87b1359d.pdf to local storage: temp_uploads\original_files/d2be28deb9d6493bbd38e31c87b1359d.pdf
+2025-08-22 15:57:11,811 - app.routes.upload_routes - INFO - Original file uploaded to local storage: original_files/d2be28deb9d6493bbd38e31c87b1359d.pdf
+2025-08-22 15:57:11,825 - app.routes.upload_routes - INFO - Starting evaluation for user 2, evaluation ID: 44
+2025-08-22 15:57:11,826 - app.routes.upload_routes - INFO - Evaluation methods: ['basic'], Templates: []
+2025-08-22 15:57:11,926 - app.services.pdf_parser - INFO - Extracted text from page 1
+2025-08-22 15:57:11,970 - app.services.pdf_parser - INFO - Extracted text from page 2
+2025-08-22 15:57:12,011 - app.services.pdf_parser - INFO - Extracted text from page 3
+2025-08-22 15:57:12,012 - app.services.pdf_parser - INFO - PDF parsing completed: 3 pages, 497 words, 4058 characters
+2025-08-22 15:57:12,012 - app.routes.upload_routes - INFO - Starting multi-method evaluation for user 2
+2025-08-22 15:57:12,012 - app.routes.upload_routes - INFO - Methods: ['basic'], Templates: []
+2025-08-22 15:57:12,013 - app.services.gpt_evaluator - INFO - OpenAI API key found: Yes
+2025-08-22 15:57:12,013 - app.services.gpt_evaluator - INFO - API key starts with: sk-proj-u1...
+2025-08-22 15:57:12,013 - app.services.gpt_evaluator - ERROR - Failed to initialize OpenAI client: Client.__init__() got an unexpected keyword argument 'proxies'
+2025-08-22 15:57:12,013 - app.services.gpt_evaluator - ERROR - Using mock evaluation - this will provide fake scores for testing only!
+2025-08-22 15:57:12,014 - app.services.gpt_evaluator - INFO - OpenAI API key found: Yes
+2025-08-22 15:57:12,014 - app.services.gpt_evaluator - INFO - API key starts with: sk-proj-u1...
+2025-08-22 15:57:12,014 - app.services.gpt_evaluator - ERROR - Failed to initialize OpenAI client: Client.__init__() got an unexpected keyword argument 'proxies'
+2025-08-22 15:57:12,014 - app.services.gpt_evaluator - ERROR - Using mock evaluation - this will provide fake scores for testing only!
+2025-08-22 15:57:12,014 - app.services.gpt_evaluator - INFO - Starting manuscript evaluation for 4045 characters
+2025-08-22 15:57:12,015 - app.services.gpt_evaluator - ERROR - WARNING: No OpenAI client available - evaluation cannot proceed!
+2025-08-22 15:57:12,015 - app.services.gpt_evaluator - ERROR - WARNING: Set OPENAI_API_KEY environment variable for real evaluation.
+2025-08-22 15:57:12,015 - app.services.gpt_evaluator - ERROR - Error in comprehensive evaluation: OpenAI client not available. Please set OPENAI_API_KEY environment variable.
+2025-08-22 15:57:12,015 - app.services.gpt_evaluator - ERROR - Error in manuscript evaluation: Evaluation failed: OpenAI client not available. Please set OPENAI_API_KEY environment variable.
+2025-08-22 15:57:12,016 - app.routes.upload_routes - ERROR - Basic evaluation failed: Manuscript evaluation failed: Evaluation failed: OpenAI client not available. Please set OPENAI_API_KEY environment variable.
+2025-08-22 15:57:12,016 - app.routes.upload_routes - ERROR - Evaluation failed for user 2: Manuscript evaluation failed: Evaluation failed: OpenAI client not available. Please set OPENAI_API_KEY environment variable.
+2025-08-22 15:57:12,016 - app.routes.upload_routes - ERROR - Evaluation failed: Manuscript evaluation failed: Evaluation failed: OpenAI client not available. Please set OPENAI_API_KEY environment variable.
+2025-08-22 15:57:12,025 - werkzeug - INFO - 127.0.0.1 - - [22/Aug/2025 15:57:12] "[35m[1mPOST /api/upload/evaluate HTTP/1.1[0m" 503 -
+2025-08-22 16:02:22,438 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-08-22 16:02:22,439 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-08-22 16:02:45,715 - werkzeug - INFO - 127.0.0.1 - - [22/Aug/2025 16:02:45] "OPTIONS /api/upload/evaluate HTTP/1.1" 200 -
+2025-08-22 16:02:45,731 - app.routes.upload_routes - INFO - File saved temporarily: temp_uploads\cc342b65a39f4391b72481aa052544b2.docx
+2025-08-22 16:02:53,119 - app.services.s3_service - ERROR - Access denied to S3 bucket 'placeholder-bucket'
+2025-08-22 16:02:53,126 - app.services.s3_service - INFO - Successfully uploaded temp_uploads\cc342b65a39f4391b72481aa052544b2.docx to local storage: temp_uploads\original_files/cc342b65a39f4391b72481aa052544b2.docx
+2025-08-22 16:02:53,126 - app.routes.upload_routes - INFO - Original file uploaded to local storage: original_files/cc342b65a39f4391b72481aa052544b2.docx
+2025-08-22 16:02:53,137 - app.routes.upload_routes - INFO - Starting evaluation for user 2, evaluation ID: 45
+2025-08-22 16:02:53,137 - app.routes.upload_routes - INFO - Evaluation methods: ['basic'], Templates: []
+2025-08-22 16:02:53,140 - app.services.docx_parser - INFO - Starting DOCX parsing for file: temp_uploads\cc342b65a39f4391b72481aa052544b2.docx
+2025-08-22 16:02:53,919 - app.services.docx_parser - INFO - DOCX parsing completed. Extracted 9561 characters, 1653 words
+2025-08-22 16:02:53,922 - app.routes.upload_routes - INFO - Starting multi-method evaluation for user 2
+2025-08-22 16:02:53,922 - app.routes.upload_routes - INFO - Methods: ['basic'], Templates: []
+2025-08-22 16:02:53,923 - app.services.gpt_evaluator - INFO - OpenAI API key found: Yes
+2025-08-22 16:02:53,923 - app.services.gpt_evaluator - INFO - API key starts with: sk-proj-tP...
+2025-08-22 16:02:53,924 - app.services.gpt_evaluator - ERROR - Failed to initialize OpenAI client: Client.__init__() got an unexpected keyword argument 'proxies'
+2025-08-22 16:02:53,924 - app.services.gpt_evaluator - ERROR - Using mock evaluation - this will provide fake scores for testing only!
+2025-08-22 16:02:53,924 - app.services.gpt_evaluator - INFO - OpenAI API key found: Yes
+2025-08-22 16:02:53,924 - app.services.gpt_evaluator - INFO - API key starts with: sk-proj-tP...
+2025-08-22 16:02:53,924 - app.services.gpt_evaluator - ERROR - Failed to initialize OpenAI client: Client.__init__() got an unexpected keyword argument 'proxies'
+2025-08-22 16:02:53,924 - app.services.gpt_evaluator - ERROR - Using mock evaluation - this will provide fake scores for testing only!
+2025-08-22 16:02:53,925 - app.services.gpt_evaluator - INFO - Starting manuscript evaluation for 9561 characters
+2025-08-22 16:02:53,925 - app.services.gpt_evaluator - ERROR - WARNING: No OpenAI client available - evaluation cannot proceed!
+2025-08-22 16:02:53,925 - app.services.gpt_evaluator - ERROR - WARNING: Set OPENAI_API_KEY environment variable for real evaluation.
+2025-08-22 16:02:53,925 - app.services.gpt_evaluator - ERROR - Error in comprehensive evaluation: OpenAI client not available. Please set OPENAI_API_KEY environment variable.
+2025-08-22 16:02:53,926 - app.services.gpt_evaluator - ERROR - Error in manuscript evaluation: Evaluation failed: OpenAI client not available. Please set OPENAI_API_KEY environment variable.
+2025-08-22 16:02:53,926 - app.routes.upload_routes - ERROR - Basic evaluation failed: Manuscript evaluation failed: Evaluation failed: OpenAI client not available. Please set OPENAI_API_KEY environment variable.
+2025-08-22 16:02:53,926 - app.routes.upload_routes - ERROR - Evaluation failed for user 2: Manuscript evaluation failed: Evaluation failed: OpenAI client not available. Please set OPENAI_API_KEY environment variable.
+2025-08-22 16:02:53,927 - app.routes.upload_routes - ERROR - Evaluation failed: Manuscript evaluation failed: Evaluation failed: OpenAI client not available. Please set OPENAI_API_KEY environment variable.
+2025-08-22 16:02:53,933 - werkzeug - INFO - 127.0.0.1 - - [22/Aug/2025 16:02:53] "[35m[1mPOST /api/upload/evaluate HTTP/1.1[0m" 503 -
+2025-08-22 16:32:37,394 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-08-22 16:32:37,395 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-08-22 16:32:56,088 - werkzeug - INFO - 127.0.0.1 - - [22/Aug/2025 16:32:56] "OPTIONS /api/user/profile HTTP/1.1" 200 -
+2025-08-22 16:32:56,096 - werkzeug - INFO - 127.0.0.1 - - [22/Aug/2025 16:32:56] "GET /api/user/profile HTTP/1.1" 200 -
+2025-08-22 16:33:01,084 - werkzeug - INFO - 127.0.0.1 - - [22/Aug/2025 16:33:01] "OPTIONS /api/upload/evaluate HTTP/1.1" 200 -
+2025-08-22 16:33:01,091 - app.routes.upload_routes - INFO - File saved temporarily: temp_uploads\2913470684014e0da90db751ea102c4e.pdf
+2025-08-22 16:33:08,096 - app.services.s3_service - ERROR - Access denied to S3 bucket 'placeholder-bucket'
+2025-08-22 16:33:08,100 - app.services.s3_service - INFO - Successfully uploaded temp_uploads\2913470684014e0da90db751ea102c4e.pdf to local storage: temp_uploads\original_files/2913470684014e0da90db751ea102c4e.pdf
+2025-08-22 16:33:08,100 - app.routes.upload_routes - INFO - Original file uploaded to local storage: original_files/2913470684014e0da90db751ea102c4e.pdf
+2025-08-22 16:33:08,110 - app.routes.upload_routes - INFO - Starting evaluation for user 2, evaluation ID: 46
+2025-08-22 16:33:08,110 - app.routes.upload_routes - INFO - Evaluation methods: ['basic'], Templates: []
+2025-08-22 16:33:08,225 - app.services.pdf_parser - INFO - Extracted text from page 1
+2025-08-22 16:33:08,270 - app.services.pdf_parser - INFO - Extracted text from page 2
+2025-08-22 16:33:08,399 - app.services.pdf_parser - INFO - Extracted text from page 3
+2025-08-22 16:33:08,399 - app.services.pdf_parser - INFO - PDF parsing completed: 3 pages, 497 words, 4058 characters
+2025-08-22 16:33:08,399 - app.routes.upload_routes - INFO - Starting multi-method evaluation for user 2
+2025-08-22 16:33:08,400 - app.routes.upload_routes - INFO - Methods: ['basic'], Templates: []
+2025-08-22 16:33:08,400 - app.services.gpt_evaluator - INFO - OpenAI API key found: Yes
+2025-08-22 16:33:08,400 - app.services.gpt_evaluator - INFO - API key starts with: sk-proj-tP...
+2025-08-22 16:33:09,491 - app.services.gpt_evaluator - INFO - Successfully initialized OpenAI client
+2025-08-22 16:33:09,491 - app.services.gpt_evaluator - INFO - OpenAI API key found: Yes
+2025-08-22 16:33:09,492 - app.services.gpt_evaluator - INFO - API key starts with: sk-proj-tP...
+2025-08-22 16:33:10,033 - app.services.gpt_evaluator - INFO - Successfully initialized OpenAI client
+2025-08-22 16:33:10,033 - app.services.gpt_evaluator - INFO - Starting manuscript evaluation for 4045 characters
+2025-08-22 16:33:10,033 - app.services.gpt_evaluator - INFO - Evaluating category: Line & Copy Editing
+2025-08-22 16:33:12,569 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 404 Not Found"
+2025-08-22 16:33:12,609 - app.services.gpt_evaluator - ERROR - Error in category evaluation (attempt 1/3): Error code: 404 - {'error': {'message': 'The model `gpt-4` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'param': None, 'code': 'model_not_found'}}
+2025-08-22 16:33:12,610 - app.services.gpt_evaluator - INFO - Retrying in 2 seconds...
+2025-08-22 16:33:16,807 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 404 Not Found"
+2025-08-22 16:33:16,809 - app.services.gpt_evaluator - ERROR - Error in category evaluation (attempt 2/3): Error code: 404 - {'error': {'message': 'The model `gpt-4` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'param': None, 'code': 'model_not_found'}}
+2025-08-22 16:33:16,810 - app.services.gpt_evaluator - INFO - Retrying in 4 seconds...
+2025-08-22 16:33:24,723 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 404 Not Found"
+2025-08-22 16:33:24,724 - app.services.gpt_evaluator - ERROR - Error in category evaluation (attempt 3/3): Error code: 404 - {'error': {'message': 'The model `gpt-4` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'param': None, 'code': 'model_not_found'}}
+2025-08-22 16:33:25,726 - app.services.gpt_evaluator - INFO - Evaluating category: Plot Evaluation
+2025-08-22 16:33:26,613 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 404 Not Found"
+2025-08-22 16:33:26,614 - app.services.gpt_evaluator - ERROR - Error in category evaluation (attempt 1/3): Error code: 404 - {'error': {'message': 'The model `gpt-4` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'param': None, 'code': 'model_not_found'}}
+2025-08-22 16:33:26,614 - app.services.gpt_evaluator - INFO - Retrying in 2 seconds...
+2025-08-22 16:33:29,963 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 404 Not Found"
+2025-08-22 16:33:29,964 - app.services.gpt_evaluator - ERROR - Error in category evaluation (attempt 2/3): Error code: 404 - {'error': {'message': 'The model `gpt-4` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'param': None, 'code': 'model_not_found'}}
+2025-08-22 16:33:29,964 - app.services.gpt_evaluator - INFO - Retrying in 4 seconds...
+2025-08-22 16:33:34,987 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 404 Not Found"
+2025-08-22 16:33:34,988 - app.services.gpt_evaluator - ERROR - Error in category evaluation (attempt 3/3): Error code: 404 - {'error': {'message': 'The model `gpt-4` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'param': None, 'code': 'model_not_found'}}
+2025-08-22 16:33:35,990 - app.services.gpt_evaluator - INFO - Evaluating category: Character Evaluation
+2025-08-22 16:33:36,540 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 404 Not Found"
+2025-08-22 16:33:36,541 - app.services.gpt_evaluator - ERROR - Error in category evaluation (attempt 1/3): Error code: 404 - {'error': {'message': 'The model `gpt-4` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'param': None, 'code': 'model_not_found'}}
+2025-08-22 16:33:36,541 - app.services.gpt_evaluator - INFO - Retrying in 2 seconds...
+2025-08-22 16:33:39,096 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 404 Not Found"
+2025-08-22 16:33:39,097 - app.services.gpt_evaluator - ERROR - Error in category evaluation (attempt 2/3): Error code: 404 - {'error': {'message': 'The model `gpt-4` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'param': None, 'code': 'model_not_found'}}
+2025-08-22 16:33:39,098 - app.services.gpt_evaluator - INFO - Retrying in 4 seconds...
+2025-08-22 16:33:43,625 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 404 Not Found"
+2025-08-22 16:33:43,626 - app.services.gpt_evaluator - ERROR - Error in category evaluation (attempt 3/3): Error code: 404 - {'error': {'message': 'The model `gpt-4` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'param': None, 'code': 'model_not_found'}}
+2025-08-22 16:33:44,627 - app.services.gpt_evaluator - INFO - Evaluating category: Book Flow Evaluation
+2025-08-22 16:33:45,147 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 404 Not Found"
+2025-08-22 16:33:45,147 - app.services.gpt_evaluator - ERROR - Error in category evaluation (attempt 1/3): Error code: 404 - {'error': {'message': 'The model `gpt-4` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'param': None, 'code': 'model_not_found'}}
+2025-08-22 16:33:45,148 - app.services.gpt_evaluator - INFO - Retrying in 2 seconds...
+2025-08-22 16:33:47,670 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 404 Not Found"
+2025-08-22 16:33:47,672 - app.services.gpt_evaluator - ERROR - Error in category evaluation (attempt 2/3): Error code: 404 - {'error': {'message': 'The model `gpt-4` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'param': None, 'code': 'model_not_found'}}
+2025-08-22 16:33:47,673 - app.services.gpt_evaluator - INFO - Retrying in 4 seconds...
+2025-08-22 16:33:52,199 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 404 Not Found"
+2025-08-22 16:33:52,200 - app.services.gpt_evaluator - ERROR - Error in category evaluation (attempt 3/3): Error code: 404 - {'error': {'message': 'The model `gpt-4` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'param': None, 'code': 'model_not_found'}}
+2025-08-22 16:33:53,202 - app.services.gpt_evaluator - INFO - Evaluating category: Worldbuilding & Setting
+2025-08-22 16:33:54,773 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 404 Not Found"
+2025-08-22 16:33:54,775 - app.services.gpt_evaluator - ERROR - Error in category evaluation (attempt 1/3): Error code: 404 - {'error': {'message': 'The model `gpt-4` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'param': None, 'code': 'model_not_found'}}
+2025-08-22 16:33:54,775 - app.services.gpt_evaluator - INFO - Retrying in 2 seconds...
+2025-08-22 16:33:57,295 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 404 Not Found"
+2025-08-22 16:33:57,296 - app.services.gpt_evaluator - ERROR - Error in category evaluation (attempt 2/3): Error code: 404 - {'error': {'message': 'The model `gpt-4` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'param': None, 'code': 'model_not_found'}}
+2025-08-22 16:33:57,296 - app.services.gpt_evaluator - INFO - Retrying in 4 seconds...
+2025-08-22 16:34:02,007 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 404 Not Found"
+2025-08-22 16:34:02,009 - app.services.gpt_evaluator - ERROR - Error in category evaluation (attempt 3/3): Error code: 404 - {'error': {'message': 'The model `gpt-4` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'param': None, 'code': 'model_not_found'}}
+2025-08-22 16:34:03,011 - app.services.gpt_evaluator - INFO - Evaluating category: LADI Readiness Score
+2025-08-22 16:34:04,244 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 404 Not Found"
+2025-08-22 16:34:04,246 - app.services.gpt_evaluator - ERROR - Error in category evaluation (attempt 1/3): Error code: 404 - {'error': {'message': 'The model `gpt-4` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'param': None, 'code': 'model_not_found'}}
+2025-08-22 16:34:04,246 - app.services.gpt_evaluator - INFO - Retrying in 2 seconds...
+2025-08-22 16:34:07,340 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 404 Not Found"
+2025-08-22 16:34:07,342 - app.services.gpt_evaluator - ERROR - Error in category evaluation (attempt 2/3): Error code: 404 - {'error': {'message': 'The model `gpt-4` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'param': None, 'code': 'model_not_found'}}
+2025-08-22 16:34:07,343 - app.services.gpt_evaluator - INFO - Retrying in 4 seconds...
+2025-08-22 16:34:12,593 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 404 Not Found"
+2025-08-22 16:34:12,594 - app.services.gpt_evaluator - ERROR - Error in category evaluation (attempt 3/3): Error code: 404 - {'error': {'message': 'The model `gpt-4` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'param': None, 'code': 'model_not_found'}}
+2025-08-22 16:34:13,596 - app.services.gpt_evaluator - INFO - Completed manuscript evaluation
+2025-08-22 16:34:13,596 - app.routes.upload_routes - INFO - Evaluation completed successfully for user 2
+2025-08-22 16:34:13,606 - app.services.pdf_generator - INFO - Generating PDF report with evaluation_results type: <class 'dict'>
+2025-08-22 16:34:13,617 - app.services.pdf_generator - INFO - PDF report generated successfully: temp_uploads\evaluation_report_46_f5c08b837c9f4fe3a3d9d8dc9654baae.pdf
+2025-08-22 16:34:20,015 - app.services.s3_service - ERROR - Access denied to S3 bucket 'placeholder-bucket'
+2025-08-22 16:34:20,018 - app.services.s3_service - INFO - Successfully uploaded temp_uploads\evaluation_report_46_f5c08b837c9f4fe3a3d9d8dc9654baae.pdf to local storage: temp_uploads\reports/evaluation_report_46_f5c08b837c9f4fe3a3d9d8dc9654baae.pdf
+2025-08-22 16:34:20,019 - app.routes.upload_routes - ERROR - Failed to upload report to local storage: 'S3Service' object has no attribute 'generate_download_url'
+2025-08-22 16:34:20,021 - werkzeug - INFO - 127.0.0.1 - - [22/Aug/2025 16:34:20] "POST /api/upload/evaluate HTTP/1.1" 200 -
+2025-08-22 16:34:42,884 - werkzeug - INFO - 127.0.0.1 - - [22/Aug/2025 16:34:42] "OPTIONS /api/upload/evaluate HTTP/1.1" 200 -
+2025-08-22 16:34:42,891 - app.routes.upload_routes - INFO - File saved temporarily: temp_uploads\14c13c9e5ede4ccea4c9608381853058.pdf
+2025-08-22 16:34:48,737 - app.services.s3_service - ERROR - Access denied to S3 bucket 'placeholder-bucket'
+2025-08-22 16:34:48,741 - app.services.s3_service - INFO - Successfully uploaded temp_uploads\14c13c9e5ede4ccea4c9608381853058.pdf to local storage: temp_uploads\original_files/14c13c9e5ede4ccea4c9608381853058.pdf
+2025-08-22 16:34:48,741 - app.routes.upload_routes - INFO - Original file uploaded to local storage: original_files/14c13c9e5ede4ccea4c9608381853058.pdf
+2025-08-22 16:34:48,745 - app.routes.upload_routes - INFO - Starting evaluation for user 2, evaluation ID: 47
+2025-08-22 16:34:48,745 - app.routes.upload_routes - INFO - Evaluation methods: ['basic'], Templates: []
+2025-08-22 16:34:48,816 - app.services.pdf_parser - INFO - Extracted text from page 1
+2025-08-22 16:34:48,849 - app.services.pdf_parser - INFO - Extracted text from page 2
+2025-08-22 16:34:48,878 - app.services.pdf_parser - INFO - Extracted text from page 3
+2025-08-22 16:34:48,879 - app.services.pdf_parser - INFO - PDF parsing completed: 3 pages, 497 words, 4058 characters
+2025-08-22 16:34:48,879 - app.routes.upload_routes - INFO - Starting multi-method evaluation for user 2
+2025-08-22 16:34:48,880 - app.routes.upload_routes - INFO - Methods: ['basic'], Templates: []
+2025-08-22 16:34:48,881 - app.services.gpt_evaluator - INFO - OpenAI API key found: Yes
+2025-08-22 16:34:48,881 - app.services.gpt_evaluator - INFO - API key starts with: sk-proj-tP...
+2025-08-22 16:34:49,447 - app.services.gpt_evaluator - INFO - Successfully initialized OpenAI client
+2025-08-22 16:34:49,447 - app.services.gpt_evaluator - INFO - OpenAI API key found: Yes
+2025-08-22 16:34:49,447 - app.services.gpt_evaluator - INFO - API key starts with: sk-proj-tP...
+2025-08-22 16:34:49,991 - app.services.gpt_evaluator - INFO - Successfully initialized OpenAI client
+2025-08-22 16:34:49,992 - app.services.gpt_evaluator - INFO - Starting manuscript evaluation for 4045 characters
+2025-08-22 16:34:49,992 - app.services.gpt_evaluator - INFO - Evaluating category: Line & Copy Editing
+2025-08-22 16:34:51,769 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 404 Not Found"
+2025-08-22 16:34:51,770 - app.services.gpt_evaluator - ERROR - Error in category evaluation (attempt 1/3): Error code: 404 - {'error': {'message': 'The model `gpt-4` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'param': None, 'code': 'model_not_found'}}
+2025-08-22 16:34:51,770 - app.services.gpt_evaluator - INFO - Retrying in 2 seconds...
+2025-08-22 16:34:54,299 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 404 Not Found"
+2025-08-22 16:34:54,302 - app.services.gpt_evaluator - ERROR - Error in category evaluation (attempt 2/3): Error code: 404 - {'error': {'message': 'The model `gpt-4` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'param': None, 'code': 'model_not_found'}}
+2025-08-22 16:34:54,303 - app.services.gpt_evaluator - INFO - Retrying in 4 seconds...
+2025-08-22 16:35:01,400 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-08-22 16:35:01,400 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-08-22 16:35:06,751 - werkzeug - INFO - 127.0.0.1 - - [22/Aug/2025 16:35:06] "OPTIONS /api/upload/evaluate HTTP/1.1" 200 -
+2025-08-22 16:35:06,765 - app.routes.upload_routes - INFO - File saved temporarily: temp_uploads\753da59b589e4e74b54617f0bbd4cf5f.docx
+2025-08-22 16:35:12,651 - app.services.s3_service - ERROR - Access denied to S3 bucket 'placeholder-bucket'
+2025-08-22 16:35:12,654 - app.services.s3_service - INFO - Successfully uploaded temp_uploads\753da59b589e4e74b54617f0bbd4cf5f.docx to local storage: temp_uploads\original_files/753da59b589e4e74b54617f0bbd4cf5f.docx
+2025-08-22 16:35:12,655 - app.routes.upload_routes - INFO - Original file uploaded to local storage: original_files/753da59b589e4e74b54617f0bbd4cf5f.docx
+2025-08-22 16:35:12,662 - app.routes.upload_routes - INFO - Starting evaluation for user 2, evaluation ID: 48
+2025-08-22 16:35:12,662 - app.routes.upload_routes - INFO - Evaluation methods: ['basic'], Templates: []
+2025-08-22 16:35:12,662 - app.services.docx_parser - INFO - Starting DOCX parsing for file: temp_uploads\753da59b589e4e74b54617f0bbd4cf5f.docx
+2025-08-22 16:35:13,268 - app.services.docx_parser - INFO - DOCX parsing completed. Extracted 9561 characters, 1653 words
+2025-08-22 16:35:13,269 - app.routes.upload_routes - INFO - Starting multi-method evaluation for user 2
+2025-08-22 16:35:13,269 - app.routes.upload_routes - INFO - Methods: ['basic'], Templates: []
+2025-08-22 16:35:13,269 - app.services.gpt_evaluator - INFO - OpenAI API key found: Yes
+2025-08-22 16:35:13,269 - app.services.gpt_evaluator - INFO - API key starts with: sk-proj-tP...
+2025-08-22 16:35:13,837 - app.services.gpt_evaluator - INFO - Successfully initialized OpenAI client
+2025-08-22 16:35:13,837 - app.services.gpt_evaluator - INFO - OpenAI API key found: Yes
+2025-08-22 16:35:13,837 - app.services.gpt_evaluator - INFO - API key starts with: sk-proj-tP...
+2025-08-22 16:35:14,369 - app.services.gpt_evaluator - INFO - Successfully initialized OpenAI client
+2025-08-22 16:35:14,370 - app.services.gpt_evaluator - INFO - Starting manuscript evaluation for 9561 characters
+2025-08-22 16:35:14,370 - app.services.gpt_evaluator - INFO - Evaluating category: Line & Copy Editing
+2025-08-22 16:35:17,324 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2025-08-22 16:35:17,326 - openai._base_client - INFO - Retrying request to /chat/completions in 0.499495 seconds
+2025-08-22 16:35:18,880 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2025-08-22 16:35:18,882 - openai._base_client - INFO - Retrying request to /chat/completions in 0.980122 seconds
+2025-08-22 16:35:20,939 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2025-08-22 16:35:20,941 - app.services.gpt_evaluator - ERROR - Error in category evaluation (attempt 1/3): Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}
+2025-08-22 16:35:20,942 - app.services.gpt_evaluator - INFO - Retrying in 2 seconds...
+2025-08-22 16:35:23,866 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2025-08-22 16:35:23,867 - openai._base_client - INFO - Retrying request to /chat/completions in 0.389497 seconds
+2025-08-22 16:35:25,606 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2025-08-22 16:35:25,607 - openai._base_client - INFO - Retrying request to /chat/completions in 0.788180 seconds
+2025-08-22 16:35:27,687 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2025-08-22 16:35:27,688 - app.services.gpt_evaluator - ERROR - Error in category evaluation (attempt 2/3): Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}
+2025-08-22 16:35:27,688 - app.services.gpt_evaluator - INFO - Retrying in 4 seconds...
+2025-08-22 16:35:32,559 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2025-08-22 16:35:32,560 - openai._base_client - INFO - Retrying request to /chat/completions in 0.468505 seconds
+2025-08-22 16:35:33,721 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2025-08-22 16:35:33,722 - openai._base_client - INFO - Retrying request to /chat/completions in 0.777164 seconds
+2025-08-22 16:49:35,253 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-08-22 16:49:35,253 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-08-22 16:49:52,160 - werkzeug - INFO - 127.0.0.1 - - [22/Aug/2025 16:49:52] "OPTIONS /api/user/profile HTTP/1.1" 200 -
+2025-08-22 16:49:52,165 - werkzeug - INFO - 127.0.0.1 - - [22/Aug/2025 16:49:52] "[31m[1mGET /api/user/profile HTTP/1.1[0m" 401 -
+2025-08-22 16:49:52,223 - werkzeug - INFO - 127.0.0.1 - - [22/Aug/2025 16:49:52] "OPTIONS /api/auth/refresh HTTP/1.1" 200 -
+2025-08-22 16:49:52,245 - app.routes.auth_routes - INFO - Token refreshed for user: devnexus.enthusiast@gmail.com
+2025-08-22 16:49:52,245 - werkzeug - INFO - 127.0.0.1 - - [22/Aug/2025 16:49:52] "POST /api/auth/refresh HTTP/1.1" 200 -
+2025-08-22 16:49:52,273 - werkzeug - INFO - 127.0.0.1 - - [22/Aug/2025 16:49:52] "GET /api/user/profile HTTP/1.1" 200 -
+2025-08-22 16:49:55,487 - werkzeug - INFO - 127.0.0.1 - - [22/Aug/2025 16:49:55] "OPTIONS /api/upload/evaluate HTTP/1.1" 200 -
+2025-08-22 16:49:55,496 - app.routes.upload_routes - INFO - File saved temporarily: temp_uploads\7d2ff4965fe64616bc930f249184445f.docx
+2025-08-22 16:50:02,982 - app.services.s3_service - ERROR - Access denied to S3 bucket 'placeholder-bucket'
+2025-08-22 16:50:02,985 - app.services.s3_service - INFO - Successfully uploaded temp_uploads\7d2ff4965fe64616bc930f249184445f.docx to local storage: temp_uploads\original_files/7d2ff4965fe64616bc930f249184445f.docx
+2025-08-22 16:50:02,986 - app.routes.upload_routes - INFO - Original file uploaded to local storage: original_files/7d2ff4965fe64616bc930f249184445f.docx
+2025-08-22 16:50:02,993 - app.routes.upload_routes - INFO - Starting evaluation for user 2, evaluation ID: 49
+2025-08-22 16:50:02,994 - app.routes.upload_routes - INFO - Evaluation methods: ['basic'], Templates: []
+2025-08-22 16:50:02,994 - app.services.docx_parser - INFO - Starting DOCX parsing for file: temp_uploads\7d2ff4965fe64616bc930f249184445f.docx
+2025-08-22 16:50:03,549 - app.services.docx_parser - INFO - DOCX parsing completed. Extracted 9561 characters, 1653 words
+2025-08-22 16:50:03,550 - app.routes.upload_routes - INFO - Starting multi-method evaluation for user 2
+2025-08-22 16:50:03,550 - app.routes.upload_routes - INFO - Methods: ['basic'], Templates: []
+2025-08-22 16:50:03,551 - app.services.gpt_evaluator - INFO - OpenAI API key found: Yes
+2025-08-22 16:50:03,551 - app.services.gpt_evaluator - INFO - API key starts with: sk-proj-tP...
+2025-08-22 16:50:04,192 - app.services.gpt_evaluator - INFO - Successfully initialized OpenAI client
+2025-08-22 16:50:04,193 - app.services.gpt_evaluator - INFO - OpenAI API key found: Yes
+2025-08-22 16:50:04,193 - app.services.gpt_evaluator - INFO - API key starts with: sk-proj-tP...
+2025-08-22 16:50:04,724 - app.services.gpt_evaluator - INFO - Successfully initialized OpenAI client
+2025-08-22 16:50:04,724 - app.services.gpt_evaluator - INFO - Starting manuscript evaluation for 9561 characters
+2025-08-22 16:50:04,724 - app.services.gpt_evaluator - INFO - Evaluating category: Line & Copy Editing
+2025-08-22 16:50:07,147 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2025-08-22 16:50:07,147 - openai._base_client - INFO - Retrying request to /chat/completions in 0.407405 seconds
+2025-08-22 16:50:08,388 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2025-08-22 16:50:08,389 - openai._base_client - INFO - Retrying request to /chat/completions in 0.785263 seconds
+2025-08-22 16:50:09,760 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2025-08-22 16:50:09,761 - app.services.gpt_evaluator - ERROR - Error in category evaluation (attempt 1/3): Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}
+2025-08-22 16:50:09,762 - app.services.gpt_evaluator - INFO - Retrying in 2 seconds...
+2025-08-22 16:50:12,332 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2025-08-22 16:50:12,334 - openai._base_client - INFO - Retrying request to /chat/completions in 0.485789 seconds
+2025-08-22 16:50:13,355 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2025-08-22 16:50:13,356 - openai._base_client - INFO - Retrying request to /chat/completions in 0.806180 seconds
+2025-08-22 16:50:14,745 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2025-08-22 16:50:14,746 - app.services.gpt_evaluator - ERROR - Error in category evaluation (attempt 2/3): Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}
+2025-08-22 16:50:14,747 - app.services.gpt_evaluator - INFO - Retrying in 4 seconds...

@@ -49,7 +49,11 @@ class GPTEvaluator:
     def _initialize_client(self):
         """Initialize OpenAI client"""
         try:
-            api_key = Config.OPENAI_API_KEY
+            api_key = getattr(Config, 'OPENAI_API_KEY', None)
+            logger.info(f"OpenAI API key found: {'Yes' if api_key else 'No'}")
+            if api_key:
+                logger.info(f"API key starts with: {api_key[:10]}...")
+            
             if not api_key:
                 logger.error("OpenAI API key not configured! Set OPENAI_API_KEY environment variable.")
                 logger.error("Using mock evaluation - this will provide fake scores for testing only!")
@@ -62,23 +66,9 @@ class GPTEvaluator:
                 self.client = None
                 return
             
-            # Clear any proxy environment variables that might interfere
-            import os
-            proxy_vars = ['HTTP_PROXY', 'HTTPS_PROXY', 'http_proxy', 'https_proxy']
-            original_proxy_values = {}
-            
-            for var in proxy_vars:
-                if var in os.environ:
-                    original_proxy_values[var] = os.environ[var]
-                    del os.environ[var]
-            
-            try:
-                self.client = openai.OpenAI(api_key=api_key)
-                logger.info("Successfully initialized OpenAI client")
-            finally:
-                # Restore original proxy values if they existed
-                for var, value in original_proxy_values.items():
-                    os.environ[var] = value
+            # Initialize OpenAI client
+            self.client = openai.OpenAI(api_key=api_key)
+            logger.info("Successfully initialized OpenAI client")
             
         except Exception as e:
             logger.error(f"Failed to initialize OpenAI client: {e}")
@@ -112,9 +102,9 @@ class GPTEvaluator:
         """Perform comprehensive evaluation with structured output"""
         try:
             if not self.client:
-                logger.error("⚠️  No OpenAI client available - using mock evaluation!")
-                logger.error("⚠️  This will provide fake scores. Set OPENAI_API_KEY for real evaluation.")
-                return self._generate_mock_evaluation()
+                logger.error("WARNING: No OpenAI client available - evaluation cannot proceed!")
+                logger.error("WARNING: Set OPENAI_API_KEY environment variable for real evaluation.")
+                raise Exception("OpenAI client not available. Please set OPENAI_API_KEY environment variable.")
             
             results = {}
             scores = {}
@@ -153,7 +143,7 @@ class GPTEvaluator:
             
         except Exception as e:
             logger.error(f"Error in comprehensive evaluation: {e}")
-            return self._generate_mock_evaluation()
+            raise Exception(f"Evaluation failed: {str(e)}")
     
     def _evaluate_category(self, text_content: str, category_info: Dict[str, str]) -> Dict[str, Any]:
         """Evaluate a specific category with retry logic"""
@@ -179,8 +169,11 @@ Manuscript text to evaluate:
 {text_content[:5000]}  # Limit to first 5000 characters for this category
 """
             
+                # Get model from config with fallback
+                model = getattr(Config, 'OPENAI_MODEL', 'gpt-4')
+                
                 response = self.client.chat.completions.create(
-                    model=Config.OPENAI_MODEL,
+                    model=model,
                     messages=[
                         {"role": "system", "content": "You are a professional manuscript evaluator. Provide evaluations in JSON format only."},
                         {"role": "user", "content": prompt}
@@ -227,63 +220,4 @@ Manuscript text to evaluate:
                         'status': 'failed'
                     }
     
-    def _generate_mock_evaluation(self) -> Dict[str, Any]:
-        """Generate mock evaluation for development/testing"""
-        logger.error("⚠️  GENERATING MOCK EVALUATION - THESE ARE FAKE SCORES FOR TESTING ONLY!")
-        logger.error("⚠️  Set OPENAI_API_KEY environment variable to get real AI evaluation scores!")
-        
-        mock_results = {
-            'line-editing': {
-                'score': 85,
-                'summary': 'Strong prose with excellent clarity. Minor grammar inconsistencies noted in dialogue sections.',
-                'strengths': ['Clear writing style', 'Good sentence structure'],
-                'areas_for_improvement': ['Dialogue punctuation', 'Consistent tense usage'],
-                'status': 'completed'
-            },
-            'plot': {
-                'score': 78,
-                'summary': 'Well-structured narrative with good pacing. The middle section could benefit from increased tension.',
-                'strengths': ['Clear story arc', 'Good pacing'],
-                'areas_for_improvement': ['Middle section tension', 'Subplot integration'],
-                'status': 'completed'
-            },
-            'character': {
-                'score': 92,
-                'summary': 'Exceptional character development with clear motivations and authentic dialogue throughout.',
-                'strengths': ['Deep character development', 'Authentic dialogue'],
-                'areas_for_improvement': ['Minor character consistency'],
-                'status': 'completed'
-            },
-            'flow': {
-                'score': 80,
-                'summary': 'Smooth transitions between scenes. Some chapters end abruptly but overall flow is engaging.',
-                'strengths': ['Good scene transitions', 'Engaging flow'],
-                'areas_for_improvement': ['Chapter endings', 'Pacing consistency'],
-                'status': 'completed'
-            },
-            'worldbuilding': {
-                'score': 88,
-                'summary': 'Rich, immersive setting with consistent internal logic. Great attention to environmental details.',
-                'strengths': ['Immersive setting', 'Consistent world logic'],
-                'areas_for_improvement': ['More background details'],
-                'status': 'completed'
-            },
-            'readiness': {
-                'score': 84,
-                'summary': 'High readiness for publication. Minor revisions recommended before final submission.',
-                'strengths': ['Overall quality', 'Publication ready'],
-                'areas_for_improvement': ['Minor revisions needed'],
-                'status': 'completed'
-            }
-        }
-        
-        scores = {k: v['score'] for k, v in mock_results.items()}
-        overall_score = round(sum(scores.values()) / len(scores))
-        
-        return {
-            'categories': mock_results,
-            'scores': scores,
-            'overall_score': overall_score,
-            'evaluation_date': time.strftime('%Y-%m-%d %H:%M:%S'),
-            'text_length': 5000
-        } 
+ 

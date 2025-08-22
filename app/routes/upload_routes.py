@@ -148,11 +148,22 @@ def evaluate_document():
         except Exception as eval_error:
             logger.error(f"Evaluation failed: {eval_error}")
             evaluation.status = EvaluationStatus.FAILED
-            evaluation.error_message = f'Evaluation failed: {str(eval_error)}'
+            
+            # Check if it's an OpenAI-related error
+            error_message = str(eval_error)
+            if "OpenAI" in error_message or "OPENAI_API_KEY" in error_message:
+                error_message = "OpenAI API is not configured. Please set the OPENAI_API_KEY environment variable to enable AI-powered evaluation."
+                status_code = 503  # Service Unavailable
+            else:
+                error_message = f'Evaluation failed: {str(eval_error)}'
+                status_code = 500
+            
+            evaluation.error_message = error_message
             db.session.commit()
             return jsonify({
-                'error': f'Evaluation failed: {str(eval_error)}'
-            }), 500
+                'error': error_message,
+                'error_type': 'openai_configuration' if "OpenAI" in str(eval_error) or "OPENAI_API_KEY" in str(eval_error) else 'evaluation_failed'
+            }), status_code
         
         # Update evaluation with results
         evaluation.evaluation_results = evaluation_results
@@ -1163,6 +1174,9 @@ def perform_multi_method_evaluation(text_content, evaluation_methods, selected_t
                             
                 except Exception as e:
                     logger.error(f"Basic evaluation failed: {e}")
+                    # If it's an OpenAI configuration error, raise it to be handled by the caller
+                    if "OpenAI" in str(e) or "OPENAI_API_KEY" in str(e):
+                        raise e
                     continue
                     
             elif method == 'template' and selected_templates:

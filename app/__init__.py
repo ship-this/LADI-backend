@@ -64,8 +64,30 @@ def create_app(config_name='default'):
         return response
     
         
-    # Setup logging
-    logging.basicConfig(level=logging.INFO)
+    # Setup logging with Unicode support for Windows
+    import sys
+    import os
+    
+    # Configure logging to handle Unicode properly on Windows
+    if sys.platform.startswith('win'):
+        # Force UTF-8 encoding for Windows console
+        if hasattr(sys.stdout, 'reconfigure'):
+            sys.stdout.reconfigure(encoding='utf-8')
+        if hasattr(sys.stderr, 'reconfigure'):
+            sys.stderr.reconfigure(encoding='utf-8')
+        
+        # Set environment variable for Python's internal encoding
+        os.environ['PYTHONIOENCODING'] = 'utf-8'
+    
+    # Configure logging with file handler to avoid console encoding issues
+    logging.basicConfig(
+        level=logging.INFO,
+        format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+        handlers=[
+            logging.FileHandler('ladi_app.log', encoding='utf-8'),
+            logging.StreamHandler(sys.stdout)
+        ]
+    )
     
     # User loader for Flask-Login
     @login_manager.user_loader
