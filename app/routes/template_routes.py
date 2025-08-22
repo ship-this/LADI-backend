@@ -44,7 +44,9 @@ def get_templates():
         
     except Exception as e:
         logger.error(f"Error getting templates: {e}")
-        return jsonify({'error': 'Internal server error'}), 500
+        import traceback
+        logger.error(f"Full traceback: {traceback.format_exc()}")
+        return jsonify({'error': f'Internal server error: {str(e)}'}), 500
 
 @template_bp.route('/templates', methods=['POST'])
 @jwt_required()
@@ -135,8 +137,10 @@ def upload_template():
         
     except Exception as e:
         logger.error(f"Error uploading template: {e}")
+        import traceback
+        logger.error(f"Full traceback: {traceback.format_exc()}")
         db.session.rollback()
-        return jsonify({'error': 'Internal server error'}), 500
+        return jsonify({'error': f'Internal server error: {str(e)}'}), 500
 
 @template_bp.route('/templates/<int:template_id>', methods=['GET'])
 @jwt_required()
@@ -257,7 +261,7 @@ def download_template(template_id):
         
         # Generate download URL
         storage_service = S3Service()
-        download_url = storage_service.regenerate_download_url(template.file_s3_key, expiration_hours=1)
+        download_url = storage_service.regenerate_presigned_url(template.file_s3_key, expiration_hours=1)
         
         return jsonify({
             'download_url': download_url,
