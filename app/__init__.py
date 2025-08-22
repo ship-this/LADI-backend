@@ -85,7 +85,7 @@ def create_app(config_name='default'):
     def missing_token_callback(error):
         return {'error': 'Missing token'}, 401
     
-    # Register blueprints with CORS support
+    # Register blueprints
     from app.routes import auth_bp, user_bp, admin_bp, upload_bp, template_bp
     
     # Register all blueprints
@@ -94,13 +94,6 @@ def create_app(config_name='default'):
     app.register_blueprint(admin_bp, url_prefix='/api/admin')
     app.register_blueprint(upload_bp, url_prefix='/api/upload')
     app.register_blueprint(template_bp, url_prefix='/api')
-    
-    # Apply CORS to all blueprints
-    CORS(auth_bp, origins=app.config['CORS_ORIGINS'], supports_credentials=True)
-    CORS(user_bp, origins=app.config['CORS_ORIGINS'], supports_credentials=True)
-    CORS(admin_bp, origins=app.config['CORS_ORIGINS'], supports_credentials=True)
-    CORS(upload_bp, origins=app.config['CORS_ORIGINS'], supports_credentials=True)
-    CORS(template_bp, origins=app.config['CORS_ORIGINS'], supports_credentials=True)
     
     # Create database tables
     with app.app_context():
