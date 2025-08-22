@@ -29,6 +29,7 @@ def create_app(config_name='default'):
     migrate.init_app(app, db)
     
     # Setup CORS with comprehensive configuration
+    print(f"Setting up CORS with origins: {app.config['CORS_ORIGINS']}")
     CORS(app, 
          origins=app.config['CORS_ORIGINS'],
          supports_credentials=True,
@@ -41,12 +42,33 @@ def create_app(config_name='default'):
     @app.after_request
     def after_request(response):
         origin = request.headers.get('Origin')
+        print(f"CORS Debug - Origin: {origin}")
+        print(f"CORS Debug - Allowed origins: {app.config['CORS_ORIGINS']}")
+        
         if origin in app.config['CORS_ORIGINS']:
             response.headers.add('Access-Control-Allow-Origin', origin)
+            print(f"CORS Debug - Added origin header: {origin}")
+        else:
+            print(f"CORS Debug - Origin not in allowed list")
+            
         response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization,X-Requested-With,Accept,Origin,Access-Control-Request-Method,Access-Control-Request-Headers')
         response.headers.add('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS')
         response.headers.add('Access-Control-Allow-Credentials', 'true')
         return response
+    
+    # Add a test route for CORS debugging
+    @app.route('/api/test-cors', methods=['GET', 'OPTIONS'])
+    def test_cors():
+        if request.method == 'OPTIONS':
+            response = make_response()
+            origin = request.headers.get('Origin')
+            if origin in app.config['CORS_ORIGINS']:
+                response.headers.add('Access-Control-Allow-Origin', origin)
+            response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization,X-Requested-With,Accept,Origin,Access-Control-Request-Method,Access-Control-Request-Headers')
+            response.headers.add('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS')
+            response.headers.add('Access-Control-Allow-Credentials', 'true')
+            return response
+        return {'message': 'CORS test successful', 'allowed_origins': app.config['CORS_ORIGINS']}
     
     # Setup logging
     logging.basicConfig(level=logging.INFO)
