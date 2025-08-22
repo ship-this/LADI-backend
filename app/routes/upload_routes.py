@@ -337,6 +337,10 @@ def public_download_file(file_key):
         
         # Extract filename from the key
         filename = file_key.split('/')[-1]
+        
+        # Ensure upload directory exists
+        os.makedirs(Config.UPLOAD_FOLDER, exist_ok=True)
+        
         local_file_path = os.path.join(Config.UPLOAD_FOLDER, filename)
         
         # Check if file exists locally
@@ -465,6 +469,10 @@ def public_evaluation_download_file(evaluation_id):
             logger.error(f"Local file download error: {local_error}")
             # Try fallback to direct file path
             filename = evaluation.report_file_s3_key.split('/')[-1]
+            
+            # Ensure upload directory exists
+            os.makedirs(Config.UPLOAD_FOLDER, exist_ok=True)
+            
             local_file_path = os.path.join(Config.UPLOAD_FOLDER, filename)
             
             if os.path.exists(local_file_path):
@@ -1175,6 +1183,9 @@ def perform_multi_method_evaluation(text_content, evaluation_methods, selected_t
                             # Get template file and parse it
                             storage_service = S3Service()
                             template_content = storage_service.get_file_content(template.file_s3_key)
+                            
+                            # Ensure upload directory exists
+                            os.makedirs(Config.UPLOAD_FOLDER, exist_ok=True)
                             
                             # Save template temporarily
                             temp_template_path = os.path.join(Config.UPLOAD_FOLDER, f'temp_template_{template_id}.xlsx')

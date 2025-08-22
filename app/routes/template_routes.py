@@ -86,6 +86,9 @@ def upload_template():
         timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
         file_key = f'templates/{current_user_id}/{timestamp}_{filename}'
         
+        # Ensure upload directory exists
+        os.makedirs(Config.UPLOAD_FOLDER, exist_ok=True)
+        
         # Save file temporarily first
         temp_file_path = os.path.join(Config.UPLOAD_FOLDER, f'temp_{timestamp}_{filename}')
         file.save(temp_file_path)
