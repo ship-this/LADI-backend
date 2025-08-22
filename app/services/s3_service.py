@@ -113,6 +113,10 @@ class S3Service:
             logger.error(f"Failed to generate download URL: {e}")
             raise Exception(f"Failed to generate download URL: {e}")
     
+    def generate_download_url(self, s3_key, expiration_hours=24):
+        """Generate a download URL (alias for generate_presigned_url)"""
+        return self.generate_presigned_url(s3_key, expiration_hours)
+    
     def regenerate_presigned_url(self, s3_key, expiration_hours=24):
         """Regenerate a presigned URL for file download"""
         try:
