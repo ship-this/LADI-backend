@@ -84,18 +84,21 @@ def upload_template():
         timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
         file_key = f'templates/{current_user_id}/{timestamp}_{filename}'
         
-        # Save file
-        file_content = file.read()
-        storage_service.save_file(file_key, file_content)
+        # Save file temporarily first
+        temp_file_path = os.path.join(Config.UPLOAD_FOLDER, f'temp_{timestamp}_{filename}')
+        file.save(temp_file_path)
+        
+        # Upload to local storage
+        storage_service.upload_file(temp_file_path, file_key)
+        
+        # Read file content for parsing
+        with open(temp_file_path, 'rb') as f:
+            file_content = f.read()
         
         # Parse template to extract criteria
         excel_parser = ExcelParser()
-        temp_file_path = os.path.join(Config.UPLOAD_FOLDER, f'temp_{timestamp}_{filename}')
         
         try:
-            with open(temp_file_path, 'wb') as f:
-                f.write(file_content)
-            
             parse_result = excel_parser.parse_excel_file(temp_file_path)
             evaluation_criteria = parse_result.get('metadata', {})
             

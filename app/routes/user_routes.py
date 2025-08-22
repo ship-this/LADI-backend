@@ -2,6 +2,7 @@ from flask import Blueprint, request, jsonify
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from werkzeug.security import generate_password_hash, check_password_hash
 from app.models.user import User
+from app.models.evaluation import Evaluation
 from app import db
 import logging
 
@@ -208,4 +209,53 @@ def delete_account():
     except Exception as e:
         logger.error(f"Error deleting account: {e}")
         db.session.rollback()
+        return jsonify({'error': 'Internal server error'}), 500
+
+@user_bp.route('/evaluations', methods=['GET'])
+@jwt_required()
+def get_user_evaluations():
+    """Get all evaluations for current user"""
+    try:
+        current_user_id = get_jwt_identity()
+        
+        # Get query parameters for filtering and pagination
+        page = request.args.get('page', 1, type=int)
+        per_page = request.args.get('per_page', 10, type=int)
+        status = request.args.get('status')
+        search = request.args.get('search')
+        
+        # Build query
+        query = Evaluation.query.filter_by(user_id=current_user_id)
+        
+        # Apply status filter
+        if status:
+            query = query.filter_by(status=status)
+        
+        # Apply search filter
+        if search:
+            query = query.filter(Evaluation.original_filename.ilike(f'%{search}%'))
+        
+        # Get total count for pagination
+        total = query.count()
+        
+        # Apply pagination
+        evaluations = query.order_by(Evaluation.created_at.desc()).paginate(
+            page=page, per_page=per_page, error_out=False
+        )
+        
+        return jsonify({
+            'success': True,
+            'evaluations': [eval.to_dict() for eval in evaluations.items],
+            'pagination': {
+                'page': page,
+                'per_page': per_page,
+                'total': total,
+                'pages': evaluations.pages,
+                'has_next': evaluations.has_next,
+                'has_prev': evaluations.has_prev
+            }
+        }), 200
+        
+    except Exception as e:
+        logger.error(f"Error getting user evaluations: {e}")
         return jsonify({'error': 'Internal server error'}), 500
