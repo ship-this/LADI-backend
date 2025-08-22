@@ -25,12 +25,14 @@ def get_user_profile():
             'success': True,
             'user': {
                 'id': user.id,
-                'username': user.username,
                 'email': user.email,
                 'first_name': user.first_name,
                 'last_name': user.last_name,
+                'role': user.role.value,
+                'is_active': user.is_active,
+                'email_verified': user.email_verified,
                 'created_at': user.created_at.isoformat() if user.created_at else None,
-                'last_login': user.last_login.isoformat() if user.last_login else None
+                'updated_at': user.updated_at.isoformat() if user.updated_at else None
             }
         }), 200
         
@@ -70,14 +72,6 @@ def update_user_profile():
                 return jsonify({'error': 'Email already in use'}), 400
             user.email = email
         
-        if 'username' in data:
-            username = data['username'].strip()
-            # Check if username is already taken by another user
-            existing_user = User.query.filter_by(username=username).first()
-            if existing_user and existing_user.id != current_user_id:
-                return jsonify({'error': 'Username already in use'}), 400
-            user.username = username
-        
         db.session.commit()
         
         logger.info(f"User {current_user_id} updated their profile")
@@ -87,12 +81,14 @@ def update_user_profile():
             'message': 'Profile updated successfully',
             'user': {
                 'id': user.id,
-                'username': user.username,
                 'email': user.email,
                 'first_name': user.first_name,
                 'last_name': user.last_name,
+                'role': user.role.value,
+                'is_active': user.is_active,
+                'email_verified': user.email_verified,
                 'created_at': user.created_at.isoformat() if user.created_at else None,
-                'last_login': user.last_login.isoformat() if user.last_login else None
+                'updated_at': user.updated_at.isoformat() if user.updated_at else None
             }
         }), 200
         
@@ -258,4 +254,157 @@ def get_user_evaluations():
         
     except Exception as e:
         logger.error(f"Error getting user evaluations: {e}")
+        return jsonify({'error': 'Internal server error'}), 500
+
+@user_bp.route('/evaluations/<int:evaluation_id>', methods=['DELETE'])
+@jwt_required()
+def delete_evaluation(evaluation_id):
+    """Delete a specific evaluation for current user"""
+    try:
+        current_user_id = get_jwt_identity()
+        
+        # Find the evaluation
+        evaluation = Evaluation.query.filter_by(
+            id=evaluation_id, 
+            user_id=current_user_id
+        ).first()
+        
+        if not evaluation:
+            return jsonify({'error': 'Evaluation not found'}), 404
+        
+        # Delete associated files from storage
+        from app.services.s3_service import S3Service
+        storage_service = S3Service()
+        
+        try:
+            # Delete original file
+            if evaluation.original_file_s3_key:
+                storage_service.delete_file(evaluation.original_file_s3_key)
+            
+            # Delete report file
+            if evaluation.report_file_s3_key:
+                storage_service.delete_file(evaluation.report_file_s3_key)
+                
+        except Exception as e:
+            logger.warning(f"Failed to delete files from storage: {e}")
+            # Continue with database deletion even if file deletion fails
+        
+        # Delete from database
+        db.session.delete(evaluation)
+        db.session.commit()
+        
+        logger.info(f"User {current_user_id} deleted evaluation {evaluation_id}")
+        
+        return jsonify({
+            'success': True,
+            'message': 'Evaluation deleted successfully'
+        }), 200
+        
+    except Exception as e:
+        logger.error(f"Error deleting evaluation: {e}")
+        db.session.rollback()
+        return jsonify({'error': 'Internal server error'}), 500
+
+@user_bp.route('/evaluations/bulk-delete', methods=['POST'])
+@jwt_required()
+def bulk_delete_evaluations():
+    """Delete multiple evaluations for current user"""
+    try:
+        current_user_id = get_jwt_identity()
+        data = request.get_json()
+        
+        if not data or 'evaluation_ids' not in data:
+            return jsonify({'error': 'No evaluation IDs provided'}), 400
+        
+        evaluation_ids = data['evaluation_ids']
+        if not isinstance(evaluation_ids, list):
+            return jsonify({'error': 'evaluation_ids must be a list'}), 400
+        
+        # Find evaluations that belong to the current user
+        evaluations = Evaluation.query.filter(
+            Evaluation.id.in_(evaluation_ids),
+            Evaluation.user_id == current_user_id
+        ).all()
+        
+        if not evaluations:
+            return jsonify({'error': 'No evaluations found'}), 404
+        
+        # Delete associated files from storage
+        from app.services.s3_service import S3Service
+        storage_service = S3Service()
+        deleted_files_count = 0
+        
+        for evaluation in evaluations:
+            try:
+                # Delete original file
+                if evaluation.original_file_s3_key:
+                    storage_service.delete_file(evaluation.original_file_s3_key)
+                    deleted_files_count += 1
+                
+                # Delete report file
+                if evaluation.report_file_s3_key:
+                    storage_service.delete_file(evaluation.report_file_s3_key)
+                    deleted_files_count += 1
+                    
+            except Exception as e:
+                logger.warning(f"Failed to delete files for evaluation {evaluation.id}: {e}")
+        
+        # Delete from database
+        deleted_ids = [eval.id for eval in evaluations]
+        Evaluation.query.filter(Evaluation.id.in_(deleted_ids)).delete(synchronize_session=False)
+        db.session.commit()
+        
+        logger.info(f"User {current_user_id} bulk deleted {len(evaluations)} evaluations")
+        
+        return jsonify({
+            'success': True,
+            'message': f'Successfully deleted {len(evaluations)} evaluations',
+            'deleted_count': len(evaluations),
+            'deleted_files_count': deleted_files_count,
+            'deleted_evaluation_ids': deleted_ids
+        }), 200
+        
+    except Exception as e:
+        logger.error(f"Error bulk deleting evaluations: {e}")
+        db.session.rollback()
+        return jsonify({'error': 'Internal server error'}), 500
+
+@user_bp.route('/evaluations/<int:evaluation_id>', methods=['PUT'])
+@jwt_required()
+def update_evaluation(evaluation_id):
+    """Update a specific evaluation for current user"""
+    try:
+        current_user_id = get_jwt_identity()
+        data = request.get_json()
+        
+        if not data:
+            return jsonify({'error': 'No data provided'}), 400
+        
+        # Find the evaluation
+        evaluation = Evaluation.query.filter_by(
+            id=evaluation_id, 
+            user_id=current_user_id
+        ).first()
+        
+        if not evaluation:
+            return jsonify({'error': 'Evaluation not found'}), 404
+        
+        # Update allowed fields
+        if 'original_filename' in data:
+            evaluation.original_filename = data['original_filename'].strip()
+        
+        # Commit changes
+        db.session.commit()
+        
+        logger.info(f"User {current_user_id} updated evaluation {evaluation_id}")
+        
+        return jsonify({
+            'success': True,
+            'message': 'Evaluation updated successfully',
+            'evaluation': evaluation.to_dict()
+        }), 200
+        
+    except Exception as e:
+        logger.error(f"Error updating evaluation: {e}")
+        db.session.rollback()
         return jsonify({'error': 'Internal server error'}), 500
