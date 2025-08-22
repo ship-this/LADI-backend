@@ -2,3 +2,20 @@
  * Running on http://127.0.0.1:5000
 2025-08-21 20:09:36,951 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
 2025-08-21 21:05:23,924 - flask_migrate - ERROR - Error: Directory migrations already exists and is not empty
+2025-08-21 21:10:54,976 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-08-21 21:10:54,977 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-08-21 21:11:16,918 - werkzeug - INFO - 127.0.0.1 - - [21/Aug/2025 21:11:16] "OPTIONS /api/auth/login HTTP/1.1" 200 -
+2025-08-21 21:11:18,364 - werkzeug - INFO - 127.0.0.1 - - [21/Aug/2025 21:11:18] "[31m[1mPOST /api/auth/login HTTP/1.1[0m" 401 -
+2025-08-21 21:11:23,116 - werkzeug - INFO - 127.0.0.1 - - [21/Aug/2025 21:11:23] "OPTIONS /api/auth/login HTTP/1.1" 200 -
+2025-08-21 21:11:25,122 - app.routes.auth_routes - INFO - User logged in: admin@ladi.com
+2025-08-21 21:11:26,551 - werkzeug - INFO - 127.0.0.1 - - [21/Aug/2025 21:11:26] "POST /api/auth/login HTTP/1.1" 200 -
+2025-08-21 21:11:26,558 - werkzeug - INFO - 127.0.0.1 - - [21/Aug/2025 21:11:26] "OPTIONS /api/upload/clear-old-download-urls HTTP/1.1" 200 -
+2025-08-21 21:11:28,210 - app.routes.upload_routes - INFO - Cleared old download URLs for user 1
+2025-08-21 21:11:28,211 - werkzeug - INFO - 127.0.0.1 - - [21/Aug/2025 21:11:28] "POST /api/upload/clear-old-download-urls HTTP/1.1" 200 -
+2025-08-21 21:11:28,214 - werkzeug - INFO - 127.0.0.1 - - [21/Aug/2025 21:11:28] "[33mOPTIONS /api/user/evaluations HTTP/1.1[0m" 404 -
+2025-08-21 21:11:28,218 - werkzeug - INFO - 127.0.0.1 - - [21/Aug/2025 21:11:28] "[33mOPTIONS /api/user/evaluations HTTP/1.1[0m" 404 -
+2025-08-21 21:11:28,221 - werkzeug - INFO - 127.0.0.1 - - [21/Aug/2025 21:11:28] "[33mOPTIONS /api/user/evaluations HTTP/1.1[0m" 404 -
+2025-08-21 21:55:06,380 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-08-21 21:55:06,381 - werkzeug - INFO - [33mPress CTRL+C to quit[0m

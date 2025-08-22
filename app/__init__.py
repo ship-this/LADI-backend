@@ -53,11 +53,7 @@ def create_app(config_name='default'):
         return {'error': 'Missing token'}, 401
     
     # Register blueprints
-    from app.routes.auth_routes import auth_bp
-    from app.routes.user_routes import user_bp
-    from app.routes.admin_routes import admin_bp
-    from app.routes.upload_routes import upload_bp
-    from app.routes.template_routes import template_bp
+    from app.routes import auth_bp, user_bp, admin_bp, upload_bp, template_bp
     
     app.register_blueprint(auth_bp, url_prefix='/api/auth')
     app.register_blueprint(user_bp, url_prefix='/api/user')

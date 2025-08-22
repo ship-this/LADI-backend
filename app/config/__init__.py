@@ -11,11 +11,11 @@ class Config:
     
     # Database Configuration - Use External PostgreSQL
     DATABASE_URL = os.environ.get('DATABASE_URL')
-    # if not DATABASE_URL:
-    #     # Default external PostgreSQL connection (Render.com)
-    #     DATABASE_URL = 'postgresql://ladi_user:sFF4bMH7Denh8rXMkuWsL2pkrbEUr2hd@dpg-d2jrq1f5r7bs73e3f0qg-a.oregon-postgres.render.com/ladi'
-    #     print("Info: Using external PostgreSQL database (Render.com)")
-    #     print("Please set DATABASE_URL environment variable for production")
+    if not DATABASE_URL:
+        # Default to SQLite for development
+        DATABASE_URL = 'sqlite:///ladi_dev.db'
+        print("Info: Using SQLite database for development")
+        print("Set DATABASE_URL environment variable for production PostgreSQL")
     
     SQLALCHEMY_DATABASE_URI = DATABASE_URL
     SQLALCHEMY_TRACK_MODIFICATIONS = False
