@@ -50,8 +50,15 @@ class GPTEvaluator:
         """Initialize OpenAI client"""
         try:
             api_key = Config.OPENAI_API_KEY
-            if not api_key or api_key == 'placeholder-openai-key':
-                logger.warning("OpenAI API key not configured, using mock evaluation for development")
+            if not api_key:
+                logger.error("OpenAI API key not configured! Set OPENAI_API_KEY environment variable.")
+                logger.error("Using mock evaluation - this will provide fake scores for testing only!")
+                self.client = None
+                return
+            
+            if api_key == 'placeholder-openai-key' or api_key == 'your-openai-api-key-here':
+                logger.error("OpenAI API key is set to placeholder value! Set a real OPENAI_API_KEY environment variable.")
+                logger.error("Using mock evaluation - this will provide fake scores for testing only!")
                 self.client = None
                 return
             
@@ -74,7 +81,8 @@ class GPTEvaluator:
                     os.environ[var] = value
             
         except Exception as e:
-            logger.warning(f"Failed to initialize OpenAI client: {e}, using mock evaluation for development")
+            logger.error(f"Failed to initialize OpenAI client: {e}")
+            logger.error("Using mock evaluation - this will provide fake scores for testing only!")
             self.client = None
     
     def evaluate_manuscript(self, text_content: str) -> Dict[str, Any]:
@@ -104,6 +112,8 @@ class GPTEvaluator:
         """Perform comprehensive evaluation with structured output"""
         try:
             if not self.client:
+                logger.error("⚠️  No OpenAI client available - using mock evaluation!")
+                logger.error("⚠️  This will provide fake scores. Set OPENAI_API_KEY for real evaluation.")
                 return self._generate_mock_evaluation()
             
             results = {}
@@ -219,7 +229,8 @@ Manuscript text to evaluate:
     
     def _generate_mock_evaluation(self) -> Dict[str, Any]:
         """Generate mock evaluation for development/testing"""
-        logger.info("Generating mock evaluation")
+        logger.error("⚠️  GENERATING MOCK EVALUATION - THESE ARE FAKE SCORES FOR TESTING ONLY!")
+        logger.error("⚠️  Set OPENAI_API_KEY environment variable to get real AI evaluation scores!")
         
         mock_results = {
             'line-editing': {
