@@ -9,12 +9,13 @@ class Config:
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'your-secret-key-here'
     DEBUG = os.environ.get('FLASK_DEBUG', 'False').lower() == 'true'
     
-    # Database Configuration - Prioritize PostgreSQL
+    # Database Configuration - Use External PostgreSQL
     DATABASE_URL = os.environ.get('DATABASE_URL')
-    if not DATABASE_URL:
-        # Fallback to SQLite for development if no DATABASE_URL is set
-        DATABASE_URL = 'sqlite:///ladi_dev.db'
-        print("Warning: No DATABASE_URL set, using SQLite for development")
+    # if not DATABASE_URL:
+    #     # Default external PostgreSQL connection (Render.com)
+    #     DATABASE_URL = 'postgresql://ladi_user:sFF4bMH7Denh8rXMkuWsL2pkrbEUr2hd@dpg-d2jrq1f5r7bs73e3f0qg-a.oregon-postgres.render.com/ladi'
+    #     print("Info: Using external PostgreSQL database (Render.com)")
+    #     print("Please set DATABASE_URL environment variable for production")
     
     SQLALCHEMY_DATABASE_URI = DATABASE_URL
     SQLALCHEMY_TRACK_MODIFICATIONS = False

@@ -1,273 +1,332 @@
-# LADI Manuscript Evaluation System - Backend
+# LADI Backend
 
-A Flask-based backend system for AI-powered manuscript evaluation using OpenAI GPT-4 API.
+A Flask-based REST API backend for the Literary Analysis and Development Interface (LADI) platform. This backend provides comprehensive manuscript evaluation services using AI-powered analysis and custom evaluation templates.
 
 ## Features
 
-- **Document Upload & Processing**: Support for PDF and DOCX files
-- **AI-Powered Evaluation**: 6 comprehensive evaluation categories using GPT-4
-- **PostgreSQL Database**: Robust data storage with proper relationships
-- **JWT Authentication**: Secure user authentication and authorization
-- **PDF Report Generation**: Professional evaluation reports
-- **S3 Integration**: Cloud storage for files and reports
-- **RESTful API**: Clean API endpoints for frontend integration
-
-## Evaluation Categories
-
-The system evaluates manuscripts across 6 key dimensions:
-
-1. **Line & Copy Editing**: Grammar, syntax, clarity, and prose fluidity
-2. **Plot Evaluation**: Story structure, pacing, narrative tension, and resolution
-3. **Character Evaluation**: Character depth, motivation, consistency, and emotional impact
-4. **Book Flow Evaluation**: Rhythm, transitions, escalation patterns, and narrative cohesion
-5. **Worldbuilding & Setting**: Setting depth, continuity, and originality
-6. **LADI Readiness Score**: Overall readiness assessment with proprietary scoring
-
-## Prerequisites
-
-- Python 3.8+
-- PostgreSQL 12+
-- OpenAI API key
-- AWS S3 (optional, for cloud storage)
-
-## Installation
-
-1. **Clone the repository**
-   ```bash
-   cd backend
-   ```
-
-2. **Create virtual environment**
-   ```bash
-   python -m venv venv
-   source venv/bin/activate  # On Windows: venv\Scripts\activate
-   ```
-
-3. **Install dependencies**
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-4. **Set up environment variables**
-   ```bash
-   cp env.example .env
-   ```
-   
-   Edit `.env` with your configuration:
-   ```env
-   # Database Configuration
-   DATABASE_URL=postgresql://username:password@localhost:5432/ladi_db
-   
-   # OpenAI Configuration
-   OPENAI_API_KEY=your-openai-api-key
-   
-   # AWS Configuration (optional)
-   AWS_ACCESS_KEY_ID=your-aws-access-key
-   AWS_SECRET_ACCESS_KEY=your-aws-secret-key
-   AWS_S3_BUCKET=your-s3-bucket-name
-   
-   # Flask Configuration
-   SECRET_KEY=your-secret-key-here
-   JWT_SECRET_KEY=your-jwt-secret-key-here
-   ```
-
-5. **Set up PostgreSQL database**
-   ```bash
-   # Create database
-   createdb ladi_db
-   
-   # Run database setup
-   python setup_database.py
-   ```
-
-## Database Setup
-
-The system uses PostgreSQL for production and SQLite for development. To set up PostgreSQL:
-
-1. **Install PostgreSQL**
-   ```bash
-   # Ubuntu/Debian
-   sudo apt-get install postgresql postgresql-contrib
-   
-   # macOS
-   brew install postgresql
-   
-   # Windows
-   # Download from https://www.postgresql.org/download/windows/
-   ```
-
-2. **Create database and user**
-   ```sql
-   CREATE DATABASE ladi_db;
-   CREATE USER ladi_user WITH PASSWORD 'your_password';
-   GRANT ALL PRIVILEGES ON DATABASE ladi_db TO ladi_user;
-   ```
-
-3. **Run migrations**
-   ```bash
-   python setup_database.py
-   ```
-
-## Running the Application
-
-1. **Development mode**
-   ```bash
-   python run.py
-   ```
-
-2. **Production mode**
-   ```bash
-   gunicorn -w 4 -b 0.0.0.0:5000 run:app
-   ```
-
-The API will be available at `http://localhost:5000`
-
-## API Endpoints
-
-### Authentication
-- `POST /api/auth/login` - User login
-- `POST /api/auth/register` - User registration
-- `POST /api/auth/logout` - User logout
-- `POST /api/auth/refresh` - Refresh JWT token
-
-### Document Evaluation
-- `POST /api/upload/evaluate` - Upload and evaluate document
-- `GET /api/upload/evaluation/<id>` - Get evaluation results
-- `GET /api/upload/evaluation/<id>/download` - Download evaluation report
-- `GET /api/upload/evaluations` - Get user's evaluation history
+### Core Functionality
+- **User Authentication**: JWT-based authentication system
+- **Document Processing**: Support for PDF, DOCX, XLS, and XLSX files
+- **AI Evaluation**: GPT-powered manuscript analysis
+- **Template System**: Custom evaluation templates with Excel-based criteria
+- **Multi-Method Evaluation**: Combine basic and template-based evaluations
+- **PDF Report Generation**: Detailed evaluation reports in PDF format
+- **File Management**: Secure file upload and storage system
 
 ### User Management
-- `GET /api/user/profile` - Get user profile
-- `PUT /api/user/profile` - Update user profile
-- `GET /api/user/evaluations` - Get user evaluations
+- **Profile Management**: Update personal information
+- **Password Management**: Secure password change functionality
+- **Account Management**: Account deletion with confirmation
 
-### Admin (if admin role)
-- `GET /api/admin/users` - Get all users
-- `GET /api/admin/evaluations` - Get all evaluations
-- `PUT /api/admin/user/<id>` - Update user status
+### Template Management
+- **Template Upload**: Upload custom evaluation templates (Excel format)
+- **Template CRUD**: Create, read, update, and delete templates
+- **Template Parsing**: Automatic parsing of Excel-based evaluation criteria
+- **Template Selection**: Choose templates for evaluation
 
-## File Structure
+## Technology Stack
+
+- **Framework**: Flask 2.3.3
+- **Database**: SQLite (development) / PostgreSQL (production)
+- **ORM**: SQLAlchemy with Flask-Migrate
+- **Authentication**: Flask-JWT-Extended
+- **File Processing**: 
+  - PyPDF2 for PDF files
+  - python-docx for DOCX files
+  - openpyxl for Excel files
+- **Report Generation**: ReportLab for PDF reports
+- **CORS**: Flask-CORS for cross-origin requests
+
+## Project Structure
 
 ```
 backend/
 ├── app/
-│   ├── __init__.py          # Flask app initialization
-│   ├── config/              # Configuration settings
-│   ├── models/              # Database models
-│   ├── routes/              # API routes
-│   ├── services/            # Business logic services
-│   └── utils/               # Utility functions
-├── migrations/              # Database migrations
-├── temp_uploads/            # Temporary file storage
-├── requirements.txt         # Python dependencies
-├── setup_database.py        # Database setup script
-├── run.py                   # Application entry point
-└── README.md               # This file
+│   ├── __init__.py              # Flask app initialization
+│   ├── config/                  # Configuration settings
+│   │   └── __init__.py
+│   ├── models/                  # Database models
+│   │   ├── __init__.py
+│   │   ├── user.py              # User model
+│   │   └── evaluation.py        # Evaluation and Template models
+│   ├── routes/                  # API routes
+│   │   ├── __init__.py
+│   │   ├── auth_routes.py       # Authentication endpoints
+│   │   ├── user_routes.py       # User management endpoints
+│   │   ├── upload_routes.py     # File upload and evaluation
+│   │   └── template_routes.py   # Template management
+│   ├── services/                # Business logic services
+│   │   ├── __init__.py
+│   │   ├── gpt_evaluator.py     # GPT-based evaluation
+│   │   ├── template_evaluator.py # Template-based evaluation
+│   │   ├── pdf_parser.py        # PDF text extraction
+│   │   ├── docx_parser.py       # DOCX text extraction
+│   │   ├── excel_parser.py      # Excel template parsing
+│   │   ├── pdf_generator.py     # PDF report generation
+│   │   └── local_storage_service.py # File storage
+│   └── utils/                   # Utility functions
+├── migrations/                  # Database migrations
+├── uploads/                     # File upload directory
+│   ├── reports/                 # Generated PDF reports
+│   └── templates/               # Uploaded templates
+├── requirements.txt             # Python dependencies
+├── run.py                       # Application entry point
+├── env.example                  # Environment variables example
+└── README.md                    # This file
 ```
 
-## Services
+## API Endpoints
 
-### GPT Evaluator
-- Handles AI-powered manuscript evaluation
-- Supports 6 evaluation categories
-- Fallback to mock evaluation for development
+### Authentication
+- `POST /api/auth/register` - User registration
+- `POST /api/auth/login` - User login
+- `POST /api/auth/logout` - User logout
+- `POST /api/auth/refresh` - Refresh JWT token
 
-### PDF Generator
-- Creates professional evaluation reports
-- Includes executive summary and detailed analysis
-- Supports custom styling and branding
+### User Management
+- `GET /api/user/profile` - Get user profile
+- `PUT /api/user/profile` - Update user profile
+- `POST /api/user/change-password` - Change password
+- `POST /api/user/delete-account` - Delete account
 
-### File Parsers
-- PDF Parser: Extracts text from PDF files
-- DOCX Parser: Extracts text from Word documents
-- Excel Parser: Parses evaluation criteria from Excel files
+### File Upload and Evaluation
+- `POST /api/upload/evaluate` - Upload and evaluate document
+- `GET /api/upload/download/<filename>` - Download evaluation report
 
-### S3 Service
-- Cloud storage integration
-- File upload and download
-- Presigned URL generation
+### Template Management
+- `GET /api/templates` - List all templates
+- `POST /api/templates` - Upload new template
+- `GET /api/templates/<id>` - Get template details
+- `PUT /api/templates/<id>` - Update template
+- `DELETE /api/templates/<id>` - Delete template
+- `GET /api/templates/<id>/download` - Download template file
+
+## Database Models
+
+### User Model
+- `id`: Primary key
+- `username`: Unique username
+- `email`: Unique email address
+- `password_hash`: Hashed password
+- `first_name`: User's first name
+- `last_name`: User's last name
+- `created_at`: Account creation timestamp
+- `last_login`: Last login timestamp
+
+### Evaluation Model
+- `id`: Primary key
+- `user_id`: Foreign key to User
+- `original_filename`: Original uploaded filename
+- `file_s3_key`: Storage key for uploaded file
+- `evaluation_results`: JSON evaluation results
+- `pdf_report_path`: Path to generated PDF report
+- `evaluation_methods`: JSON list of evaluation methods used
+- `selected_templates`: JSON list of template IDs used
+- `created_at`: Evaluation timestamp
+
+### EvaluationTemplate Model
+- `id`: Primary key
+- `name`: Template name
+- `description`: Template description
+- `file_s3_key`: Storage key for template file
+- `original_filename`: Original template filename
+- `is_active`: Template availability flag
+- `is_default`: Basic template flag
+- `uploaded_by`: Foreign key to User
+- `file_size`: Template file size
+- `evaluation_criteria`: Parsed criteria from Excel
+- `template_type`: Template type (basic/custom)
+- `created_at`: Template creation timestamp
+- `updated_at`: Template update timestamp
+
+## Setup Instructions
+
+### Prerequisites
+- Python 3.8+
+- pip (Python package manager)
+
+### Quick Setup
+1. **Clone the repository** (if not already done)
+2. **Run the setup script** from the project root:
+   ```bash
+   # Unix/Linux/macOS
+   ./setup.sh
+   
+   # Windows
+   setup.bat
+   ```
+
+### Manual Setup
+1. **Create virtual environment**:
+   ```bash
+   cd backend
+   python -m venv venv
+   ```
+
+2. **Activate virtual environment**:
+   ```bash
+   # Unix/Linux/macOS
+   source venv/bin/activate
+   
+   # Windows
+   venv\Scripts\activate
+   ```
+
+3. **Install dependencies**:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+4. **Set up environment variables**:
+   ```bash
+   cp env.example .env
+   # Edit .env with your configuration
+   ```
+
+5. **Initialize database**:
+   ```bash
+   flask db init
+   flask db migrate -m "Initial migration"
+   flask db upgrade
+   ```
+
+6. **Create upload directories**:
+   ```bash
+   mkdir -p uploads/reports uploads/templates
+   ```
+
+### Running the Application
+
+#### Development Mode
+```bash
+python run.py
+```
+
+#### Production Mode
+```bash
+gunicorn -w 4 -b 0.0.0.0:5000 run:app
+```
+
+The API will be available at `http://localhost:5000`
+
+## Configuration
+
+### Environment Variables
+Create a `.env` file in the backend directory with the following variables:
+
+```env
+# Flask Configuration
+FLASK_APP=run.py
+FLASK_ENV=development
+SECRET_KEY=your-secret-key-here
+
+# Database Configuration
+DATABASE_URL=sqlite:///instance/ladi.db
+
+# JWT Configuration
+JWT_SECRET_KEY=your-jwt-secret-key-here
+JWT_ACCESS_TOKEN_EXPIRES=3600
+
+# File Upload Configuration
+MAX_CONTENT_LENGTH=16777216
+UPLOAD_FOLDER=uploads
+
+# API Configuration
+REQUEST_TIMEOUT=300
+UPLOAD_TIMEOUT=600
+```
+
+### Database Configuration
+- **Development**: SQLite database (default)
+- **Production**: PostgreSQL (update DATABASE_URL)
 
 ## Development
 
-### Running Tests
-```bash
-python -m pytest tests/
-```
+### Code Style
+- Follow PEP 8 Python style guide
+- Use meaningful variable and function names
+- Add docstrings to all functions and classes
+- Keep functions small and focused
+
+### Testing
+- Write unit tests for all new features
+- Test API endpoints with tools like Postman
+- Verify file upload and processing functionality
 
 ### Database Migrations
+When making model changes:
 ```bash
-# Create new migration
 flask db migrate -m "Description of changes"
-
-# Apply migrations
 flask db upgrade
 ```
 
-### Code Style
-```bash
-# Format code
-black app/
+## Security Features
 
-# Lint code
-flake8 app/
+- **Password Hashing**: Secure password storage using Werkzeug
+- **JWT Authentication**: Stateless authentication with token refresh
+- **Input Validation**: Comprehensive request validation
+- **File Type Validation**: Secure file upload with type checking
+- **CORS Protection**: Configured for frontend integration
+- **SQL Injection Protection**: Using SQLAlchemy ORM
+
+## Error Handling
+
+The API provides consistent error responses:
+```json
+{
+  "error": "Error message",
+  "success": false
+}
 ```
 
-## Deployment
+Common HTTP status codes:
+- `200`: Success
+- `400`: Bad Request
+- `401`: Unauthorized
+- `404`: Not Found
+- `500`: Internal Server Error
 
-### Docker
-```bash
-# Build image
-docker build -t ladi-backend .
+## Performance Considerations
 
-# Run container
-docker run -p 5000:5000 ladi-backend
-```
-
-### Environment Variables for Production
-```env
-FLASK_ENV=production
-DATABASE_URL=postgresql://user:pass@host:5432/ladi_db
-OPENAI_API_KEY=your-production-openai-key
-AWS_S3_BUCKET=your-production-s3-bucket
-SECRET_KEY=your-production-secret-key
-```
-
-## Security Considerations
-
-- JWT tokens for authentication
-- Password hashing with bcrypt
-- CORS configuration
-- File upload validation
-- SQL injection prevention with SQLAlchemy
-- Environment variable management
+- **File Processing**: Asynchronous processing for large files
+- **Database Queries**: Optimized queries with proper indexing
+- **Memory Management**: Efficient file handling and cleanup
+- **Timeout Handling**: Cross-platform timeout implementation
 
 ## Troubleshooting
 
-### Database Connection Issues
-- Verify PostgreSQL is running
-- Check DATABASE_URL format
-- Ensure database and user exist
-- Check firewall settings
+### Common Issues
 
-### OpenAI API Issues
-- Verify API key is valid
-- Check API quota and limits
-- Ensure proper network connectivity
+1. **Database Connection Error**:
+   - Check DATABASE_URL in .env
+   - Ensure database file permissions
 
-### File Upload Issues
-- Check file size limits
-- Verify file format support
-- Ensure temp_uploads directory exists
-- Check disk space
+2. **File Upload Issues**:
+   - Verify upload directory exists
+   - Check file size limits
+   - Validate file types
 
-## Support
+3. **JWT Token Issues**:
+   - Check JWT_SECRET_KEY configuration
+   - Verify token expiration settings
 
-For issues and questions:
-1. Check the troubleshooting section
-2. Review the logs in `ladi_app.log`
-3. Verify environment configuration
-4. Test with the provided test files
+4. **Import Errors**:
+   - Ensure virtual environment is activated
+   - Check all dependencies are installed
+
+### Logs
+Check application logs for detailed error information:
+```bash
+tail -f ladi_app.log
+```
+
+## Contributing
+
+1. Follow the existing code structure
+2. Add comprehensive error handling
+3. Update documentation for new features
+4. Test thoroughly before submitting changes
 
 ## License
 
-This project is proprietary software for LADI Manuscript Evaluation System. 
+This project is part of the LADI platform. See the main project README for license information. 
