@@ -55,7 +55,7 @@ class Config:
     MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
     
     # CORS Configuration
-    CORS_ORIGINS = os.environ.get('CORS_ORIGINS', 'http://localhost:3000,http://localhost:5173').split(',')
+    CORS_ORIGINS = os.environ.get('CORS_ORIGINS', 'http://localhost:3000,http://localhost:5173,https://ladi-frontend.vercel.app').split(',')
     
     # Frontend URL for email links
     FRONTEND_URL = os.getenv('FRONTEND_URL', 'http://localhost:3000')

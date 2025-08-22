@@ -29,7 +29,11 @@ def create_app(config_name='default'):
     migrate.init_app(app, db)
     
     # Setup CORS
-    CORS(app, supports_credentials=True)
+    CORS(app, 
+         origins=app.config['CORS_ORIGINS'],
+         supports_credentials=True,
+         methods=['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+         allow_headers=['Content-Type', 'Authorization', 'X-Requested-With'])
     
     # Setup logging
     logging.basicConfig(level=logging.INFO)
