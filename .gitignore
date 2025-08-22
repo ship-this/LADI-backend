@@ -2,6 +2,17 @@
 venv/
 env.example
 
+temp_uploads/
+
+# Python cache files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+
+
 
 # Editor directories and files
 .vscode/*
