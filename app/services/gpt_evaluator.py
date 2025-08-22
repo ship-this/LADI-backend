@@ -118,8 +118,8 @@ class GPTEvaluator:
                     results[category_id] = category_result
                     scores[category_id] = category_result.get('score', 0)
                     
-                    # Add delay to avoid rate limiting
-                    time.sleep(1)
+                    # Add shorter delay to avoid rate limiting but reduce timeout
+                    time.sleep(0.5)
                     
                 except Exception as e:
                     logger.error(f"Error evaluating category {category_id}: {e}")
@@ -180,7 +180,7 @@ Manuscript text to evaluate:
                     ],
                     temperature=0.3,
                     max_tokens=1000,
-                    timeout=30  # Add timeout
+                    timeout=60  # Increase timeout for longer responses
                 )
                 
                 content = response.choices[0].message.content.strip()

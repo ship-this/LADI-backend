@@ -20,6 +20,8 @@ def create_app(config_name='default'):
     # Configure request timeout for long-running operations
     app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
     app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # 16MB
+    app.config['PERMANENT_SESSION_LIFETIME'] = 300  # 5 minutes
+    app.config['REQUEST_TIMEOUT'] = 300  # 5 minutes for long evaluations
     
     # Initialize extensions
     db.init_app(app)
