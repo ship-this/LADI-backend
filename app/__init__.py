@@ -28,48 +28,42 @@ def create_app(config_name='default'):
     jwt.init_app(app)
     migrate.init_app(app, db)
     
-    # Setup CORS with comprehensive configuration
+    # Setup CORS with comprehensive configuration for all routes
     print(f"Setting up CORS with origins: {app.config['CORS_ORIGINS']}")
+    
+    # Configure CORS for the main app
     CORS(app, 
          origins=app.config['CORS_ORIGINS'],
          supports_credentials=True,
-         methods=['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-         allow_headers=['Content-Type', 'Authorization', 'X-Requested-With', 'Accept', 'Origin', 'Access-Control-Request-Method', 'Access-Control-Request-Headers'],
-         expose_headers=['Content-Type', 'Authorization'],
+         methods=['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
+         allow_headers=['Content-Type', 'Authorization', 'X-Requested-With', 'Accept', 'Origin', 'Access-Control-Request-Method', 'Access-Control-Request-Headers', 'Cache-Control', 'Pragma'],
+         expose_headers=['Content-Type', 'Authorization', 'Content-Disposition'],
          max_age=86400)  # Cache preflight for 24 hours
     
-    # Add CORS headers to all responses
+    # Add CORS headers to all responses to ensure coverage
     @app.after_request
-    def after_request(response):
+    def add_cors_headers(response):
         origin = request.headers.get('Origin')
-        print(f"CORS Debug - Origin: {origin}")
-        print(f"CORS Debug - Allowed origins: {app.config['CORS_ORIGINS']}")
         
+        # Only add CORS headers if the origin is in our allowed list
         if origin in app.config['CORS_ORIGINS']:
-            response.headers.add('Access-Control-Allow-Origin', origin)
-            print(f"CORS Debug - Added origin header: {origin}")
-        else:
-            print(f"CORS Debug - Origin not in allowed list")
+            # Don't duplicate headers if Flask-CORS already set them
+            if 'Access-Control-Allow-Origin' not in response.headers:
+                response.headers['Access-Control-Allow-Origin'] = origin
             
-        response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization,X-Requested-With,Accept,Origin,Access-Control-Request-Method,Access-Control-Request-Headers')
-        response.headers.add('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS')
-        response.headers.add('Access-Control-Allow-Credentials', 'true')
+            # Ensure all necessary headers are present
+            if 'Access-Control-Allow-Methods' not in response.headers:
+                response.headers['Access-Control-Allow-Methods'] = 'GET, POST, PUT, DELETE, OPTIONS, PATCH'
+            
+            if 'Access-Control-Allow-Headers' not in response.headers:
+                response.headers['Access-Control-Allow-Headers'] = 'Content-Type, Authorization, X-Requested-With, Accept, Origin, Access-Control-Request-Method, Access-Control-Request-Headers, Cache-Control, Pragma'
+            
+            if 'Access-Control-Allow-Credentials' not in response.headers:
+                response.headers['Access-Control-Allow-Credentials'] = 'true'
+        
         return response
     
-    # Add a test route for CORS debugging
-    @app.route('/api/test-cors', methods=['GET', 'OPTIONS'])
-    def test_cors():
-        if request.method == 'OPTIONS':
-            response = make_response()
-            origin = request.headers.get('Origin')
-            if origin in app.config['CORS_ORIGINS']:
-                response.headers.add('Access-Control-Allow-Origin', origin)
-            response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization,X-Requested-With,Accept,Origin,Access-Control-Request-Method,Access-Control-Request-Headers')
-            response.headers.add('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS')
-            response.headers.add('Access-Control-Allow-Credentials', 'true')
-            return response
-        return {'message': 'CORS test successful', 'allowed_origins': app.config['CORS_ORIGINS']}
-    
+        
     # Setup logging
     logging.basicConfig(level=logging.INFO)
     
@@ -91,14 +85,22 @@ def create_app(config_name='default'):
     def missing_token_callback(error):
         return {'error': 'Missing token'}, 401
     
-    # Register blueprints
+    # Register blueprints with CORS support
     from app.routes import auth_bp, user_bp, admin_bp, upload_bp, template_bp
     
+    # Register all blueprints
     app.register_blueprint(auth_bp, url_prefix='/api/auth')
     app.register_blueprint(user_bp, url_prefix='/api/user')
     app.register_blueprint(admin_bp, url_prefix='/api/admin')
     app.register_blueprint(upload_bp, url_prefix='/api/upload')
     app.register_blueprint(template_bp, url_prefix='/api')
+    
+    # Apply CORS to all blueprints
+    CORS(auth_bp, origins=app.config['CORS_ORIGINS'], supports_credentials=True)
+    CORS(user_bp, origins=app.config['CORS_ORIGINS'], supports_credentials=True)
+    CORS(admin_bp, origins=app.config['CORS_ORIGINS'], supports_credentials=True)
+    CORS(upload_bp, origins=app.config['CORS_ORIGINS'], supports_credentials=True)
+    CORS(template_bp, origins=app.config['CORS_ORIGINS'], supports_credentials=True)
     
     # Create database tables
     with app.app_context():
