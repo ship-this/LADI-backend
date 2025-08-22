@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, request, make_response
 from flask_cors import CORS
 from flask_login import LoginManager
 from flask_jwt_extended import JWTManager
@@ -28,12 +28,25 @@ def create_app(config_name='default'):
     jwt.init_app(app)
     migrate.init_app(app, db)
     
-    # Setup CORS
+    # Setup CORS with comprehensive configuration
     CORS(app, 
          origins=app.config['CORS_ORIGINS'],
          supports_credentials=True,
          methods=['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-         allow_headers=['Content-Type', 'Authorization', 'X-Requested-With'])
+         allow_headers=['Content-Type', 'Authorization', 'X-Requested-With', 'Accept', 'Origin', 'Access-Control-Request-Method', 'Access-Control-Request-Headers'],
+         expose_headers=['Content-Type', 'Authorization'],
+         max_age=86400)  # Cache preflight for 24 hours
+    
+    # Add CORS headers to all responses
+    @app.after_request
+    def after_request(response):
+        origin = request.headers.get('Origin')
+        if origin in app.config['CORS_ORIGINS']:
+            response.headers.add('Access-Control-Allow-Origin', origin)
+        response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization,X-Requested-With,Accept,Origin,Access-Control-Request-Method,Access-Control-Request-Headers')
+        response.headers.add('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS')
+        response.headers.add('Access-Control-Allow-Credentials', 'true')
+        return response
     
     # Setup logging
     logging.basicConfig(level=logging.INFO)
